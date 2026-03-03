@@ -1,0 +1,141 @@
+Jennings: All right, cool. Yeah. So this was the initial basically flow that Blake and Ethan got. So couple changes on this, but I'll go through that as we flow through the boxes. So basically it goes from top to the bottom.
+
+First step, the user enters either a rec number that corresponds to an open rec that we currently have, or they manually put in this information like job title, job description, IC or literal role, et cetera. So in both cases, we will end up extracting skills from the desired skills and required skills, which are actually just like bullet points of text. It's not actually single letters of skills, and we'll probably also extract them from the job description, so that kind of covers right here. All this level right here.
+
+So then we go to the middle box right here with final items gathered from user input where we have the text corpus like the job description, the desired skills. But we also have a straight up list of what the extracted skills are for that.
+
+So then we start to look at the three pillars that'll be the kind of score that makes up the top people who might be relevant for a role. So like the bottom left for skill evidence score over here, we take those lists of skills from the desired and required skills. We probably will combine these into one list because our existing pipelines for SKLZ basically combines these initially and then extracts skills from all of it. So it doesn't determine or doesn't say which place the skill is from. So just to make it easier for us, I think we might just like combine them for now, but yeah, so basically.
+
+This thing is gonna be similar to the second tool that I had made for graph rag where basically the steps are that the skills are extracted from the original text box from the query or from that the user does in the query which we just talked about up there. It then looks at the NEO4J graph and uses graph rag, either through a full text embedding, a vector embedding or hybrid retriever.
+
+Morgeson: Yes.
+
+Jennings: Sorry, were you saying something?
+
+Morgeson: No, I was just taking a drink.
+
+Jennings: OK, cool. So it takes basically both those, one of them or both of them and gets the closest skills that exist in the NEO4J graph itself. So like maybe lowercase Python would be coerced to like uppercase Python or like Python programming would probably be like coerced to Python if that's if Python like exists in the graph. Yeah, so then you've got that list of skills, and then you basically threw a cipher query that I had made and is what that I have with the graph rag.
+
+Basically it just takes that list of skills and it looks to see which employees in the company basically match those the most amount of skill. So like if there are 8 skills in this job rec that it extracted, maybe somebody has seven of those eight skills, so they'll probably rank pretty high and then we'll get back a list that has like all those employees, and then it has like their overlap skills as like a list. And it has like how many skills they are overlapping and stuff just so that we have that information.
+
+Once it outputs it and then we will determine this is a little thing we'll have to play around with - a normalized basically number from zero to one for like how much skill evidence they have. We'll have to see what it is normalized off of, whether it's like one is always like the top person who has the most skills that are also in the job rec, or if it's like, you know, seven of eight means they get a 7/8 score or something. I don't know. We can figure it out. That's not that important at this stage. We can play around with it, but yeah, so then we get that number zero to one.
+
+And then we get job title, we get role history evidence score. So this is the one where they were talking about just having like the job title and then to basically use an embedding to see like how close that is to like employees' job titles and then do like - say my most recent one is like senior software engineer, senior machine learning engineer. But my last one was like manufacturing engineer. So like if we were looking for like a mechanical engineer or manufacturing engineer, I might be close to that because I used to be that job, but we probably like weight that a little bit lower. So like you weight it in descending order of like when you held the role, if that makes sense. But basically, add up basically people's jobs and how close they are to like the existing job title. Does that make sense?
+
+Morgeson: Yeah, that seems straightforward, yeah.
+
+Jennings: OK. Yeah, OK, cool. And then it has a lot of overlap, though with the experience evidence 'cause they were almost just talking about doing it like an input job plus job description and maybe like Atlas professional summary or like the recent Atlas close outs. So there's a couple things going on here where I think maybe we can do embeddings with a couple of things, or maybe we do like job description and job title and compare it to like - I don't know. The job description of the job rec, but I don't know like how close somebody's Atlas summary would be to like a job description for embedding. So we're gonna have to play around with that.
+
+But another thing that they said was to look at like required skills and stuff. Those are almost like tasks - they're like bullet points. So to maybe compare that - excuse me - to like people's most recent like Atlas close outs 'cause that kinda says like what they accomplished in the last year. So we could almost - so I think that might be maybe a more rich data source if we use that a little bit. But again, we'll have to play around with that. But that sort of again then getting kind of the list of people who have like the best match basically through that embedding.
+
+And then do again a normalized score 0 to one, where we'll have to see like what how we wanna basically structure that. And then you take those 3 pillars, you have a weight for each of them and this will probably be like a user, you know, they can assign 30% to skill evidence, 30 to role history and then 40 to experience evidence. I don't - whatever they want.
+
+And then basically this outputs to a list of, we'll say 10 people or something, and then off to the side right here where it says potentially use LLM to explain why each of them are a good fit. We would basically like feed in - so like the list of employees that are output here on the sorted employees candidate that would have like their name, employee ID, their state that they're in, maybe what state they're willing to move to, their Atlas description, their overlapping skills with the job rec. So all that information then we would like feed into an LLM and basically be like given this context information, why is this employee a good fit for like this job? So then it would just like give a kind of plain text for like why each person is a good fit for a job or maybe like less of a good fit basically.
+
+One thing they did touch on and we touched on, I think a couple meetings ago, was they wanted like the same list to always be returned. So like you know how like when we embed stuff or like just use an LLM, like you can ask it the same question, but it'll give like a different answer like different times.
+
+Morgeson: Yeah.
+
+Jennings: It's the same for like embedding, which I'm sure you know, but yeah, so like for the case where there is a job rec already right here, I think it can be easy to be deterministic because even though like the embedding will be different each time, like we're already gonna like pre-extract the skills and do all the embedding for that stuff. So like that won't like change, right? And like the people's skills and stuff, that embedding won't change. So like, I think that's easy to like, always kind of return the same list.
+
+But where the user will input stuff is a little bit different. Where we talked a little bit about it where like the only way that I can see to do it - and you might have a better idea on this - is like somebody puts in like a job description and like you know, required skills and stuff. If we almost just like, you know, like kinda like cache the answer if you've already seen it.
+
+Morgeson: What is it called?
+
+Jennings: Memoization. It's like a Python - I don't know what it's called.
+
+Morgeson: OK.
+
+Jennings: It's basically, if you're running a function, but the inputs you've already seen for that function, it basically just caches it so that it doesn't have to redo all the like computation. It just like makes a dictionary of like input and outputs.
+
+Morgeson: Oh, nice. Yeah.
+
+Jennings: Yeah. So it's kind of the same deal here where, like let's say the input is like job description and then the output - so the key value pair for that dictionary, the value is all the like the extracted skills. So like if we were to just do that every time and extract the same description for skills, it would probably extract slightly different skills every time. You know, not radically different, but like somewhat different. But if we did like a key value pair or like the description is the hash, we could always get the same skills out as long as they put in the same exact description in.
+
+And like it's kind of the same maybe for skills that that then extracts. So like if for each of the skills that the job description you know extracts, all the values in that one would be like a different dictionary which would also then have for each of those unique skills - it would - we would save the embedding for it. Basically, so I don't know. That was my first thought to like kinda make it more deterministic for like the embedding stuff. Because once that stuff is deterministic, the whole like cosine similarity is always the same between the two dissimilar like vectors, which is what the embeddings are anyway.
+
+Morgeson: Right, yeah.
+
+Jennings: So I think once we can do that, it'll be there. But we also then at the end basically said like, yeah, we're gonna be the one showing this off though anyway. So, like, that'll probably just be on our like road map to do like next anyway, like that'll be just something that we would do after it's all working. So anyway, we talked about that for longer than we probably should have at the meeting earlier today, which is why I touched on it. But I don't think it's the most important thing, but just something that we were trying to keep in mind.
+
+Morgeson: Yeah. My first thought on that is like 'cause I don't know if the graph stuff uses LLMs inherently. I don't think it does.
+
+Jennings: Yeah, but if you're doing a straight hybrid retriever with NEO4J, you can -
+
+Morgeson: Yes.
+
+Jennings: Sorry, were you saying something?
+
+Morgeson: No, I was just taking a drink.
+
+Jennings: OK, cool. So it takes basically both those, one of them or both of them and gets the closest skills that exist in the NEO4J graph itself. So like it takes those lists of skills from the query and gets the most similar skills that exist in the graph. You can also have it just output like a list of the nodes that it's responding, or that it's basically found. So like it doesn't just have to respond with plain text. You can have it actually respond with basically the node and the properties that it thinks are good. So yeah, we don't - so like basically it's not - it would not hallucinate there because it's just at that point like returning the node display name and stuff for the people.
+
+Morgeson: OK. Thanks.
+
+Jennings: Yeah.
+
+Morgeson: Yeah. And then I mean, there's more simple models like just harder keyword match instead of like the LLM based stuff so that's also an option, but then I feel like when you've relied too much on just keyword match, you miss things, so it'll probably just be like a fine tuning of both of those to figure it out. But I like the caching the function results too because I feel like that'll be good to get repeatable answers.
+
+Jennings: Yeah. OK. All right.
+
+Morgeson: Yeah.
+
+Jennings: Well, that's good then to hear. I don't even know if we'll get to that in the hackathon, but that was just - yeah, something that we discussed 'cause I'm sure like the results wouldn't change like too much anyway, and it's not like users are gonna be like playing with this. I believe it's gonna be us like showing it off basically at the end. So yeah, a little bit more of a guardrail. But yeah.
+
+Morgeson: I think my plan is to build like just for my own learning, build like a small version of this, and then I'll probably - I'll take - I think you already sent last week. I haven't pulled it. You sent the repo right for the rag?
+
+Jennings: No, I sent how to do the Neo4J embeddings. I just - I got halfway through the repo thing and then I got pulled to something else.
+
+Morgeson: Yeah, no worries. Yeah.
+
+Jennings: So I need to - yeah, I sat in the meeting earlier today. But yeah, I'm gonna get back to that and I'll make that.
+
+Morgeson: Yeah. So if you get to it soon, cool. I might just do like a community thing just to like I said, I've been wanting to learn this as is, but I'd like to - the last time I did a hackathon, I feel like it would be better to actually have something like mostly built by the time we show up there and then it's just like fine tuning what we -
+
+Jennings: That's kind of what they wanted. Yeah, like Ethan and Blake were saying.
+
+Morgeson: Yeah, instead of like because if we build it - if we don't have it built by the time we get there, it's just kind of watching us build it and then it's less like interactive.
+
+Jennings: Yeah. How much time we can put to it and stuff, yeah.
+
+Morgeson: So but now it's kinda just like the pacing of all four of us. And you know who's - yeah, I don't, you know, if it sounds like they want to build something by the end of this week or if that's realistic for us too or -
+
+Jennings: Well, they're gonna try to put data in it, I think. And we're just trying to talk about the architecture for it.
+
+Morgeson: Yeah. So did they say anything about like when the next steps or when they wanna -
+
+Jennings: Well, they wanted to meet on like Thursday. I think they threw some time on - they're seeing if they can get the graph up, which basically is nice because Blake just got orchestration to work so he can just point it at this new graph that I had made and just basically have it populate with all the employees and then skills and then open direction then skills. So a lot of that stuff will actually be made for us, not the embedding part. We'll have to do that manually, but like the actual node stuff should be there, which is nice.
+
+Morgeson: How is he pointing it towards what you built like is he using skills?
+
+Jennings: It's just a blank graph. Just a blank Neo4J graph.
+
+Morgeson: Is that - did you give him something to point at it or like?
+
+Jennings: Yeah. So I had Dinesh make a few graphs. One of them Quinn is using. I don't if he's using a second - we need to, and that's what Blake is talking to him about. He should only be using one. He might be using two, but we were gonna try to use that second one and then the third one. Blake is right now like experimenting slash he figured it out basically to get orchestration like working basically. So yeah, we have three like blank Neo4J graphs for version five that can be used.
+
+Morgeson: Is he just getting that from skills or?
+
+Jennings: Yeah, skills. Yeah, the same skills orchestration.
+
+Morgeson: How?
+
+Jennings: Yeah, we're gonna use the same graph basically.
+
+Morgeson: OK. Got it.
+
+Jennings: Yeah, but it's not gonna be like updated every week. We're just gonna like point at it once, 'cause it doesn't need to be like the most up-to-date data. And then we'll just like manually do the embeddings basically or like do an AI factory job. I don't - something like that.
+
+Morgeson: OK. Yeah. All right. Yeah, I'll probably just plan to meet Thursday then, unless I have questions before. And yeah, because I don't fully understand the what setup in skills and how to point to it. So I might have questions on that, but this makes sense. I feel like once I get past like the graph part - because I have a decent amount of experience on like embeddings and vectorization and retrieval. So I feel like the second part looks easier to me than the first part so.
+
+Jennings: Yeah.
+
+Morgeson: Yeah.
+
+Jennings: Yeah, like if you can get up like the architecture that just like I don't - says when to do things and then to like add it together, that'll be the part that I kind of haven't made. But yeah, as for just like yeah, retrieving the stuff I have most of that like done.
+
+Morgeson: Yeah.
+
+Jennings: I just need to - yeah, make it look pretty, 'cause it's kind of messy right now.
+
+Morgeson: OK. Sick. Thank you for the update.

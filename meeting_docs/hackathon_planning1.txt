@@ -1,0 +1,65 @@
+Morgeson, Brandon (US) was invited to the meeting.
+
+ 
+Wednesday 10:31 AM Meeting started
+
+ 
+vector embedding
+ 
+https://neo4j.com/docs/cypher-manual/current/indexes/semantic-indexes/vector-indexes/
+ 
+https://neo4j.com/docs/neo4j-graphrag-python/current/user_guide_rag.html#vector-retriever-user-guide
+ 
+Neo4js they natively support:       
+- `cosine` (Cosine similarity - best for text/embeddings)   
+-`Euclidean` (Straight-line distance)
+ 
+Hybrid Search (Vector + BM25) Neo4j has had native **Apache Lucene full-text indexes** (which use the BM25 algorithm) built into its database for years. To make this seamless for AI, the `neo4j-graphrag` package includes a specific `HybridRetriever` class. When you configure this retriever, you point it to both your Vector Index and your Full-Text Index. When a user searches for *"Needs AWS Solutions Architect Certification"*, the `HybridRetriever` will: 1.  Run the semantic Vector Search. 2.  Run the BM25 exact-keyword search. 3.  Automatically normalize the scores from both lists, merge them, and return the combined top candidates.
+Cross-Encoder Re-ranking Re-ranking is typically handled at the **orchestration layer** (your Python backend), not inside the database engine itself. Neo4j fits perfectly into a Re-ranking pipeline. You would use Neo4j's `HybridRetriever` to pull the top 50 employee profiles. Then, you pass those 50 profiles into a Cross-Encoder model (either a local open-source HuggingFace cross-encoder or an API like Cohere Rerank). The Re-ranker evaluates those specific 50 documents against the job description and re-orders them with extreme precision.
+ 
+neo4j backend Rag portion for top methods ^
+we can chat more Rob about what you've researched too
+ 
+# 1. Setup  Local Open-Source Embedding Model (e.g., BGE-Large) embedder = SentenceTransformerEmbeddings(model_name="BAAI/bge-large-en") 
+
+# 2. Setup the Neo4j HybridCypherRetriever # This does Vector + BM25 + Graph Traversal all in one database call! retriever = HybridCypherRetriever(     
+driver=neo4j_driver,     vector_index_name="resume_vector_index",     fulltext_index_name="resume_keyword_index",     embedder=embedder,     
+retrieval_query="""        
+ // This Cypher runs automatically on the top Vector+BM25 results (referenced as 'node')         
+MATCH (node)-[:HAS_ROLE]->(r:Role)         
+OPTIONAL MATCH (node)<-[:MENTORED]-(leader:Employee)         
+RETURN node.name AS Candidate,                
+node.skills AS Skills,               
+ score AS Hybrid_Match_Score, // Fused Vector + BM25 score                
+count(leader) AS Leadership_Score     """ ) 
+# 3. RETRIEVE: Pull the top 50 candidates from Neo4j top_50_candidates = retriever.search("Needs Python and AWS Solutions Architect Certification", top_k=50) 
+# 4. RE-RANK (The final polish): Use a local Cross-Encoder to re-order the top 50
+ cross_encoder = CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2') 
+final_ranked_candidates = cross_encoder.rank(     query="Needs Python and AWS Solutions Architect Certification",    
+ documents=top_50_candidates,     
+top_k=5 ) 
+# 5. GENERATE (optional): Pass the top 5 to your local LLM to write the "Supporting Evidence" summary. ```
+ 
+ 
+ 
+ 
+https://docs.us.lmco.com/pages/viewpage.action?pageId=2737815074&spaceKey=AITransformCOE&title=March%2B23-26%2B2026%2BHR%2BAI%2BHackathon
+ 
+https://lmtravelcca.us.lmco.com/
+ 
+301-581-7000
+ 
+Wednesday 11:49 AM Meeting ended: 1h 18m 51s 
+
+ 
+Jennings, Robert J (US) can you upload what you have soon since whatever we build for the vector store and keyword search is going to have to be compatible with neo4j. Por favor. Or should i just start tinkering with the free version of neo4j on my own. Just don't want to duplicate anything you've done but need that portion first
+ 
+Jennings, Robert J (US) Morgeson, Brandon (US) FYI ya'll can use charge code EWBH86099000 for all time spent on this project
+ 
+need those bedrock keys. jack hasn't gotten back yet
+ 
+Morgeson, Brandon (US) here is a file that has the steps. You have to fill in the aihr creds and api_key for it to work. If you want to try it., I would recommend changing the embedding property name and vector index name so you can see it populate in the Movie graph. Writing the embedding property takes about 16 minutes for me with 50 movies, so be aware it takes a hot second for that part.
+make_graph_embeddings.ipynb
+ 
+sick thanks!
+ 

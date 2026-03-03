@@ -1,0 +1,182 @@
+McIntyre, Ethan (US) joined the conversation.
+
+ 
+McIntyre, Ethan (US) named the meeting Hackathon Planning.
+
+ 
+Boswell, Blake W (US) and 2 others were invited to the meeting.
+
+ 
+Yesterday 9:35 AM Meeting started
+
+ 
+aws s3 data ok for graph
+ 
+https://docs.us.lmco.com/spaces/DATA/pages/790187071/079+-+Allowable+Content+S3+and+Starburst+Trino
+ 
+Purpose
+ 
+Someone has a role and they need a ranked shortlist of candidates + supporting evidence on the candidates/ranking.
+ 
+Intended Users
+ 
+ELT (Enterprise? Leadership Team)
+HRLT (HR Leadership Team)
+May have interest in the talent health of a specific discipline.
+Have a role/disc. In mind and want to understand "organizational pipeline health" (do we have a lot of people ready for x role or not?) of a certain job discipline
+Will probably want to filter to specific org/leadership chain. May want to know the relative comparison between the org and the top candidates. Maybe the top in this filtered org is actually number 20,000 overall for the role.
+Talent Managers
+I want to understand our candidates for some hypothetical role. The req may not exist.
+Hiring Managers
+Have a req, find candidates
+ 
+ 
+Who are our candidates?
+ 
+Looking for "ready-now/releasable talent pool of executives"
+ 
+Seeking a "pool" approach to talent that could be ready. Need to understand development needed to get these candidates all the way there.
+So does this mean we want candidates that are almost there, but maybe need a little bit of training?
+ 
+Use case EX:
+Example: Currently searching for an internal slate of candidates for a Chief of Staff role with x, y, z criteria.  We need a tool to source candidates enterprise-wide for consideration.  This would show where we have ready and releasable talent and potential capability gaps.
+ 
+ 
+User Interface/User Experience
+ 
+Inputs:
+User has a req
+Req number
+A req has
+Description
+Desired skills
+Required skills
+BA
+Location(s)
+IC/Leader
+Else:
+Role description
+Desired skills (extracted, but editable)
+Required skills (extracted, but editable)
+Another idea is only bringing a job title (we can do this later)
+ 
+User Flow
+ 
+User Inputs one of the following:
+A req. number if they have one
+A role description + job title
+ 
+We will show the description, desired skills, required skills from their input.
+ 
+Desired/required skills will be extracted from the input initially, and will be editable by the user to add/remove any in the list.
+ 
+ 
+Features
+ 
+The MVP will have basic features to what we can do. The next/later features are a wish list of things that we could do and how that would bring value to the intended users/company.
+ 
+MVP
+(Think of features for hiring managers)
+Search via req
+Search via role desc. + skill inputs
+Skill extraction on role info
+Skills extracted can be edited (add/remove)
+Candidate job history won't always have req data. We will only be searching/comparing by the job title at the start
+ 
+ 
+Requirements
+Deterministic candidate results
+Scoring algorithm to rank a candidate for a search
+Skill Evidence
+Input: List of required skills for a req, List of desired skills for a req, coefficient weight
+Output: Skill similarity score - A normalized (with the other pillars) score that represents the similarity between the input role's skills and the skills of each employee/candidate.
+How
+Combine required skill evidence score with desired skill evidence score
+Role History Evidence
+Input: Job title of input role, coefficient weight
+Output: Role history similarity score - A normalized role history score that represents the similarity between the input title and each employee's historical and current job titles. Weighted more towards recent roles.
+Experience Evidence
+Atlas professional summary: who you are, what you generally do summarized
+(*) Year-end closeouts: what you've done, achievements, projects you've worked on.
+Input: Job title, job description, coefficient weight
+Output: Experience similarity score - A normalized score that represents the similarity between the input title + description and each employee's professional summary & recent Atlas closeouts. Weighted more towards recent roles.
+ 
+Reasoning/summary behind result order
+ 
+ 
+Next
+Aspiration Fit
+Readiness Signals
+Potential, succession
+Leadership Signals
+Experience Evidence
+Extract experiences
+ 
+Later
+Define the pipeline health
+If there are a lot of "low" scores in the results to a filtered group, then we want to inform the searcher that this group doesn't have a strong pipeline health for that role.
+EX: Filtered to an HR org. Searched "Software Developer". This org may not be healthy for software developers (different skills, experiences, expectations, etc.)
+ 
+ 
+Todo:
+[Ethan] Create sequence diagram for the user. Specify the inputs
+[] Create an architecture diagram for the backend
+[] (Optional?) Graph data model/instance models
+[] Graph use cases
+[] Figure out what data pipelines we need to set up. Reuse the SKLZ data pipelines files
+[] Find out data sensitivity for the storage (what data can/can't we store)
+Datalake: Maggie Chan
+S3: https://docs.us.lmco.com/spaces/DATA/pages/790187071/079+-+Allowable+Content+S3+and+Starburst+Trino
+[] Initialize codebase
+[] Decompose requirements into tasks
+[] Assign tasks
+ 
+https://gitlab.us.lmco.com/sklz/about/-/issues/114#note_29285046
+ 
+http://140.169.17.216:7474/browser/
+ 
+https://neo4j.com/docs/getting-started/data-modeling/tutorial-data-modeling/
+ 
+Week of 3/2/26
+ 
+Ethan/Blake 
+
+- start getting data + loading into graph. 
+
+- Reach out to Data Governance on add'l atlas data.
+
+- Add Aspiration Fit as another pillar on diagram
+
+Rob/Mac 
+
+- plan out inner workings of Skill Evidence, Role-History Evidence, Experience Evidence
+ 
+Hackathon Diagram 3.drawio
+ 
+By the week of hackathon
+
+- have basic graph up
+
+- get 1 working example of 1 of Skill Evidence, Role History, Experience Evidence
+ 
+Yesterday 10:36 AM Meeting ended: 1h 1m 19s 
+
+ 
+copy all
+ 
+Jennings, Robert J (US) saw your message. i'm free for a few if you want to backfull me on this morning. i'll be more free tomorrow afternoon to actually sit down and build this out. 
+McIntyre, Ethan (US) or Boswell, Blake W (US) if you're free too. 
+just 5-10 min update por favor
+ 
+I can fill you in tomorrow. Grab some time on my calendar when you're free
+ 
+rob gave me a call on the side. thank youuu. i see we have a meeting tomorrow already and rob said we are meeting Thursday ??
+i'm heading out of town Thursday. so preferably meeting before 1pm pacific 4pm eastern plz
+ 
+i have a pretty good idea. the draw.io looks good
+ 
+i'm strong on the rag and vectorization second half. 
+i'm weak on the graph portion and rob said blake already connected to a new blank one. i don't know what that means. i think i'm going to mess around with the free version of neo4j and create my own graph just to learn how it works (next week). but that's the only missing part I don't understand if you can spoon feed me how you're connecting and doing that part
+ 
+Tomorrow is just with the HR folks. Us 4 will tag up again Thursday
+ 

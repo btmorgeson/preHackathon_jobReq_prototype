@@ -1,0 +1,97 @@
+To make this transcript optimal for an LLM to ingest, I have cleaned it up by **removing token-heavy timestamps**, **consolidating broken sentences** that were split across multiple lines, and **standardizing the speaker tags**. 
+
+This format reduces token usage, preserves the exact context, and allows an LLM to easily understand the conversational flow, extract action items, or generate summaries.
+
+***
+
+### Cleaned Transcript for LLM Ingestion
+
+**Ethan McIntyre**: Yeah, recording started.
+
+**Brandon Morgeson**: Cool. Thanks dude. Yeah. You can. Continue click. Thank you.
+
+**Ethan McIntyre**: Cool, yeah. Share my screen here. So yeah, the use case is like someone's got a role to fill, or a role that's gonna come out, or a role they wanna backfill and we wanna get like a the tool to generate like a short list of candidates. So maybe like the top 10. Candidates are a good fit for a role, but kind of the metric where you keep talking about is like readiness. You know, candidates that are ready for this role. Based on their skills, experiences, other things. So someone could come in with a wreck and say, hey, I just, I have this open wreck and I wanna find people that could fill it. So they would just put in the rec number and maybe when I say candidate filters here, maybe they wanna filter, maybe they don't want any level ones and choose to show up and their list, but. Yeah, these are kind of the the things we gather, but if they don't have a rack, they could come in and just have a text box and put these things in as well. Or we're thinking of something even more general. Where they just put a job descript job title in we might wanna accommodate like these three avenues of doing that. But so the thought is. Yeah. Assess everybody's like readiness metric to take on this new role and then get a rank ordered list and some factors that are gonna go into calculating that like readiness score. Is some sort of weighted combination of these pillars, so.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: Like from all this data we could get from somebody, we could extract skills from a lot of the stuff like we like we do currently. You know, extracting skills from people's trainings. Their profiles summary analysis. Bunch of stuff. And then we wanna see, OK. Well, how similar are their skills to? The skills of the input role. So we can compare each candidate's skills against like these required and desired skills. So that's kinda like the skill evidence I'm calling it. Another big one is like. OK, someone input a role up here. How similar is everybody's role history to that role? You know, if the input role is a software engineer and you've been. Software engineer here for 20 years. You'd get like a good high score for this one. So for aspiration fit in Atlas you can input like what you want your next role to be like your career aspirations, they call them. You want to either be a leader or you want to be an individual contributor.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: And you could also. So that's like the role here. And you could also indicate a BA and say like, you know, I'm I only want to work in RMS for example or or I don't have any preference. So this one's like a component of this overall score and kind of just like a filter, I guess filters out some people that that don't match that input role based on their aspirations and then? Readiness like these two are probably the ones we need to think about more. But like readiness. There's some indicators out there around an employee about like how ready they are for a next role, and we saw a lot of that today on the call like I was taking screenshots of what they were showing. But there's things like this that are on like mine and yours profile. Like they're ready for a move. Ready for a promotion. High risk of leaving. These are the managers assessment of the of like how ready the employee is basically. So it it kinda makes sense to serve as like a component in here.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: Another another thing is like like you remember you did your your end write up at the end of 2025 about what you did and then.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: Jack also does one on his side, so kind of says. You know the things you did well, opportunities. There might be something in there. That's like, hey, you know, Mac's ready for a more complex role or something. We could we could entertain like extracting those sort of things out as well or see how we do with these. Fields, but that's a thought too. And then if they put in like a leadership role in here. Maybe there's some leadership signals we could kinda parse out from some things. So in Atlas we can also see if someone was like a part of a leadership development program or if they coach or mentor people. We also have these recognitions that people send to each other and maybe there's some words in there about someone's leadership strengths, something like that, this one like maybe a bit more fuzzier at the moment, but we could talk more about it. That's kind of the idea. Yesterday kind of put together like a thought of like how we could do some of this. And reason we're we're pulling, Robin, is that he's working on like the graph rag stuff and like it could be useful here.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: And in general, he's kinda solving similar use cases like his use case was kinda like we got this graph full of employee data. You could use graph rag to sort of talk to it and and say like hey I. Have this project. I need people to staff it. Who's a good fit? And that's very similar to like what we're doing here, I think. But just like one idea on how we could maybe get like a skill evidence metric for for people when they input a role and input some desired required skills. So as I mentioned, we could extract skills from these things and associate them with employees like we do for SKLZ. So. Extract these skills. Load them into a graph. And then embed each skill set. The embedding is the skills as a skill nodes index for to make what's coming next a little faster. The user will input some skills here, or they'll have a rack which we've extracted skills for. Either way, we'll get a list of skills at runtime. We could embed each input skill. And then for each input skill in the graph, find the top X. Like similar skills to Python for example. So here's an example. Like if we put that these are the required skills for this role, we would find the top X similar skills to Python in our graph, which has all these skill extractions. Same for JavaScript and same for for this one. And so that kind of gives us, like skill pools of like, you know, here X skills that are similar to Python. And the thought is like, you know, for each employee, if they have at least one similar skill from all three of these like pools. Then we consider them as like a holder of the skill. So if an employee has like a skill that's related to Python And a skill that's related to JavaScript. And skill that's related for this one they'd have like a skill evidence score of like 1.0 for example. And this is just one way to do it or. Think about it. But I I just put this down yesterday but but yeah, that's like the the whole pitch, I guess of of where we're at so far. And all this is pretty flexible. I mean, we'll all get in a group and start chatting and we'll figure something out, but.
+
+**Brandon Morgeson**: Awesome.
+
+**Ethan McIntyre**: But yeah, any kind of questions.
+
+**Brandon Morgeson**: The last slide, was there anything useful on that one?
+
+**Ethan McIntyre**: Yeah. Yeah, this was like going after this one here, so. Like a user.
+
+**Brandon Morgeson**: OK.
+
+**Ethan McIntyre**: Yeah, just like kind of that role similarity 1.
+
+**Brandon Morgeson**: We're just breaking down. Each of those five categories a little bit more.
+
+**Ethan McIntyre**: Yeah. Yeah, 'cause 'cause like this is one overall metric that is like some weighted combination of this and maybe we let the the user like choose.
+
+**Brandon Morgeson**: Yeah. Right.
+
+**Ethan McIntyre**: But yeah, each of these is like a metric in itself to kinda come up with so. Just started doing that, but I'll let you read this kind of on the recording if you'd like, but.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: But yeah, we have a meeting tomorrow. I saw you might be busy during that time here.
+
+**Brandon Morgeson**: No, I I'm sorry. I I just put some blocks in for like military or coding, but that's that's available for me.
+
+**Ethan McIntyre**: OK, cool. I'll I'll forward it to you then.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: Yeah, just me, you and Blake and Rob. It's kind of chat about it, and yeah, the goal is to kind of just hammer out the plan a bit more if we could get the plan kinda done by next week, we'd be in like a really good spot to, like, start working on this and not make.
+
+**Brandon Morgeson**: Sweet.
+
+**Ethan McIntyre**: It a huge pain in the ***, like when we show up there.
+
+**Brandon Morgeson**: Yeah. Have we done any? Like just research like. Google have you like just researched similar problems other people have come across that maybe they have went about it?
+
+**Ethan McIntyre**: I. No, that's a good point. I haven't. I haven't looked to see if like maybe something. I mean, there's tools like this out there. A lot of vendor tools try to go after something like this and one of them is SAP.
+
+**Brandon Morgeson**: Yeah.
+
+**Ethan McIntyre**: That'd be something to look into as well, but no, I was just kind of chatting with, like loms about it and and coming up with a plan, but that'd be good to look into as well.
+
+**Brandon Morgeson**: Yeah, that's just my personality is to always research what other people did before creating my own thing. So.
+
+**Ethan McIntyre**: 100%.
+
+**Brandon Morgeson**: Yeah, that I would just and I can do that. Maybe not before tomorrow's meeting, but that's just something. Yeah, I probably wanted to.
+
+**Ethan McIntyre**: Yeah, 100%. Yeah, we got. We got some time, luckily. Starts like about a month from today, so as much as we can do ahead of time, as you know kinda helps out for the event so.
+
+**Brandon Morgeson**: Yeah, we got a bigger lead time and you've already been working on it for a while, so should be much more preparation than last time.
+
+**Ethan McIntyre**: Yeah. Yeah, we do. Got a lot of like data to wrangle here and like stuff like that. But we'll figure it out. I do need to jump to another call, but yeah, I'll forward you that meeting for tomorrow, and yeah, we'll talk more and and plan it out.
+
+**Brandon Morgeson**: OK. Thank you.
+
+**Ethan McIntyre**: Cool.
+
+**Brandon Morgeson**: See you.
+
+**Ethan McIntyre**: All right. See you, Mack.

@@ -1,0 +1,392 @@
+<mxfile host="Electron" modified="2026-03-02T18:28:36.330Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.1 Chrome/112.0.5615.204 Electron/24.6.1 Safari/537.36" etag="60jFGT216aneDWyl40ZS" version="21.6.1" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1434" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2339" pageHeight="3300" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-2" value="" style="rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=block;endFill=0;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;edgeStyle=orthogonalEdgeStyle;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WIyWlLk6GJQsqaUBKTNV-3" target="WIyWlLk6GJQsqaUBKTNV-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-3" value="User Enters Tool&lt;br&gt;&quot;I need a ranked shortlist of candidates for X role&quot;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;fontStyle=1" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="900" y="50" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-4" value="Yes" style="rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=block;endFill=0;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;edgeStyle=orthogonalEdgeStyle;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WIyWlLk6GJQsqaUBKTNV-6" target="8hCnj22E3xY9b6OYlhSP-4" edge="1">
+          <mxGeometry x="0.1" y="-10" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="810" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-5" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;jettySize=auto;orthogonalLoop=1;fontSize=11;endArrow=block;endFill=0;endSize=8;strokeWidth=1;shadow=0;labelBackgroundColor=none;entryX=0.45;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WIyWlLk6GJQsqaUBKTNV-6" target="8hCnj22E3xY9b6OYlhSP-441" edge="1">
+          <mxGeometry x="0.12" y="10" relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="1180" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-6" value="Have a req?" style="rhombus;whiteSpace=wrap;html=1;shadow=0;fontFamily=Helvetica;fontSize=12;align=center;strokeWidth=1;spacing=6;spacingTop=-4;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="930" y="160" width="100" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-4" value="User will input:" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="730" y="280" width="140" height="130" as="geometry">
+            <mxRectangle x="160" y="360" width="120" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-5" value="Req Number" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-4" vertex="1">
+          <mxGeometry y="30" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-7" value="Candidate Filters:&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Level, BA, YoS" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-4" vertex="1">
+          <mxGeometry y="50" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-479" value="&lt;font color=&quot;#f00f0f&quot;&gt;Pillar Weights for Candidate Fit Metric&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-4" vertex="1">
+          <mxGeometry y="90" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-434" value="Tool will fetch these items associated with this req in the graph:" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=60;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="470" y="310" width="210" height="200" as="geometry">
+            <mxRectangle x="160" y="360" width="120" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-448" value="Req Description" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="60" width="210" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-453" value="Job Title" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="60" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-452" value="Job Description" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="80" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-447" value="Desired skills" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="100" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-435" value="Required skills" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="120" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-436" value="IC or Leader Role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="140" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-437" value="BA" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="160" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-438" value="Location" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-434" vertex="1">
+          <mxGeometry y="180" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-441" value="User will input:" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1110" y="280" width="140" height="210" as="geometry">
+            <mxRectangle x="160" y="360" width="120" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-454" value="Job Title" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-441" vertex="1">
+          <mxGeometry y="30" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-442" value="Job Description" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-441" vertex="1">
+          <mxGeometry y="50" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-443" value="IC or Leader Role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-441" vertex="1">
+          <mxGeometry y="70" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-444" value="BA" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-441" vertex="1">
+          <mxGeometry y="90" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-445" value="Location" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-441" vertex="1">
+          <mxGeometry y="110" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-481" value="Candidate Filters:&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Level, BA, YoS" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-441" vertex="1">
+          <mxGeometry y="130" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-446" value="&lt;font color=&quot;#e21d1d&quot;&gt;Pillar Weights for Candidate Fit Metric&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-441" vertex="1">
+          <mxGeometry y="170" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-455" value="Tool will extract from the Job Title + Job Description:" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1330" y="320" width="210" height="80" as="geometry">
+            <mxRectangle x="160" y="360" width="120" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-456" value="Req Description" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-455" vertex="1">
+          <mxGeometry y="40" width="210" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-459" value="Desired skills" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-455" vertex="1">
+          <mxGeometry y="40" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-460" value="Required skills" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-455" vertex="1">
+          <mxGeometry y="60" width="210" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-464" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=1.007;exitY=0.3;exitDx=0;exitDy=0;exitPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-442" target="8hCnj22E3xY9b6OYlhSP-455" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-465" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1.005;entryY=0.056;entryDx=0;entryDy=0;entryPerimeter=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-5" target="8hCnj22E3xY9b6OYlhSP-434" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-466" value="Final Items Gathered From User Input:" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="885" y="520" width="220" height="250" as="geometry">
+            <mxRectangle x="160" y="360" width="120" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-467" value="Req Description" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="40" width="220" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-468" value="Job Title" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="40" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-469" value="Job Description" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="60" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-470" value="Desired skills&amp;nbsp;(list)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="80" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-471" value="Required skills (list)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="100" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-472" value="IC or Leader Role" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="120" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-473" value="BA" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="140" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-474" value="Location" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="160" width="220" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-475" value="Candidate Filters&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;Level, BA, YoS" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="180" width="220" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-482" value="&lt;font color=&quot;#e81111&quot;&gt;Pillar Weights for Candidate Fit Metric&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="8hCnj22E3xY9b6OYlhSP-466" vertex="1">
+          <mxGeometry y="220" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-476" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-438" target="8hCnj22E3xY9b6OYlhSP-466" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-477" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.514;exitY=1.15;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-460" target="8hCnj22E3xY9b6OYlhSP-469" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1250" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-478" target="8hCnj22E3xY9b6OYlhSP-485">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-20" value="Job Title&lt;br&gt;&lt;font color=&quot;#e21212&quot;&gt;Pillar Weight for Role-History Evidence&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-19">
+          <mxGeometry x="-0.0182" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-478" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;Candidate Fit Score =&amp;nbsp;&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#ee2020&quot;&gt;weight&lt;/font&gt;*(Skill Evidence) +&lt;/div&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt; &lt;/span&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#d82222&quot;&gt;weight&lt;/font&gt;*(Role-History Evidence) +&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#d61f1f&quot;&gt;weight&lt;/font&gt;*(Experience Evidence)&lt;div style=&quot;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="830" y="820" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-483" value="CALCULATE CANDIDATE FIT SCORE FOR ALL EMPLOYEES BASED ON THIS INPUT ROLE" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="852.5" y="770" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-487" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-473" target="8hCnj22E3xY9b6OYlhSP-484" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-488" value="Required Skills&lt;br&gt;Desired Skills&lt;br&gt;Pillar Weight for Skill Evidence" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="8hCnj22E3xY9b6OYlhSP-487" vertex="1" connectable="0">
+          <mxGeometry x="-0.0353" y="-1" relative="1" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-489" value="A normalized score that represents the similarity between the input role&#39;s skills and the skills of each employee/candidate.&lt;div style=&quot;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="258.5" y="1039" width="380" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-484" value="SKILL EVIDENCE SCORE" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="306" y="983" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-490" target="hxTU1GFUpunnQTKSWMVg-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-490" value="REQUIRED SKILLS EVIDENCE SCORE" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="146" y="1081" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-491" target="hxTU1GFUpunnQTKSWMVg-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-491" value="DESIRED SKILLS EVIDENCE SCORE" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="458.5" y="1081" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-492" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Candidate Fit Score = &lt;font color=&quot;#ee2020&quot;&gt;weight&lt;/font&gt;*(Skill Evidence) +&lt;/span&gt;&lt;/div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt; &lt;/span&gt;&amp;nbsp; &amp;nbsp;&lt;font color=&quot;#d82222&quot;&gt;weight&lt;/font&gt;*(Role-History Evidence) +&lt;br&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;font color=&quot;#d61f1f&quot;&gt;weight&lt;/font&gt;*(Experience Evidence)" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1170" y="30" width="380" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-0" target="8hCnj22E3xY9b6OYlhSP-484">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-2" value="(Employee)-[:HAS_SKILL]-&amp;gt;(Skill)&lt;br&gt;Relationships for all empls" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-1">
+          <mxGeometry x="-0.4177" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-0" value="Graph" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="56" y="823" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-4" target="hxTU1GFUpunnQTKSWMVg-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-4" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Evaluate Similarity between:&lt;br&gt;1) Input Required Skills, and&lt;br&gt;2) Each empl&#39;s skills (graph)&lt;br&gt;&lt;/span&gt;" style="label;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="178.5" y="1161" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-5" target="hxTU1GFUpunnQTKSWMVg-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-5" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Evaluate Similarity between:&lt;br&gt;1) Input Desired Skills, and&lt;br&gt;2) Each empl&#39;s skills (graph)&lt;br&gt;&lt;/span&gt;" style="label;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="491" y="1161" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-6" target="hxTU1GFUpunnQTKSWMVg-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-13" value="weight: 70%" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-10">
+          <mxGeometry x="0.0158" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-6" value="&lt;b&gt;INTERMEDIATE OUTPUT: &lt;/b&gt;&lt;br&gt;a normalized (ex: range of 0-1) Required Skills Evidence score for each employee in the graph" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="158.5" y="1251" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-8" target="hxTU1GFUpunnQTKSWMVg-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-12" value="weight: 30%" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-11">
+          <mxGeometry x="0.0366" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-8" value="&lt;b&gt;INTERMEDIATE OUTPUT: &lt;/b&gt;&lt;br&gt;a normalized (ex: range of 0-1) Desired Skills Evidence score for each employee in the graph" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="471" y="1251" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-9" target="hxTU1GFUpunnQTKSWMVg-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-54" value="Pillar Weight for Skill Evidence" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#e81717;" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-50">
+          <mxGeometry x="0.2691" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-9" value="SKILL EVIDENCE SCORE&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;(for each empl in graph)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="306" y="1361" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-21" target="hxTU1GFUpunnQTKSWMVg-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-21" value="A normalized score that represents the similarity between the input job title and each employee&#39;s historical and current job titles, weighted more towards recent roles.&lt;div style=&quot;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="805" y="1057" width="380" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-485" value="ROLE-HISTORY EVIDENCE SCORE" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="852.5" y="1000" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-22" target="hxTU1GFUpunnQTKSWMVg-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-22" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Evaluate Similarity between:&lt;br&gt;1) Input job title, and&lt;br&gt;2) Each empl&#39;s current &amp;amp; previous job titles (graph)&lt;br&gt;&lt;/span&gt;" style="label;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="885" y="1120" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-23" target="hxTU1GFUpunnQTKSWMVg-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-23" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Compute Role-History Evidence score for each empl, weighting similarity scores of their more recent roles more heavily&lt;br&gt;&lt;/span&gt;" style="label;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="885" y="1198" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-24" target="hxTU1GFUpunnQTKSWMVg-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-51" value="Pillar Weight for Role-History Evidence" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#e31616;" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-48">
+          <mxGeometry x="0.5444" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-24" value="ROLE-HISTORY EVIDENCE SCORE&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;(for each empl in graph)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="852.5" y="1300" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-28" target="8hCnj22E3xY9b6OYlhSP-485">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-30" value="(Employee)-[:HAS_ROLE]-&amp;gt;(Role)&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;Relationships for all empls" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-29">
+          <mxGeometry x="0.0032" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-28" target="8hCnj22E3xY9b6OYlhSP-486">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-34" value="Each empl&#39;s:&lt;br&gt;Atlas professional summary&lt;br&gt;Recent Atlas Closeouts" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-33">
+          <mxGeometry x="0.0159" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-28" value="Graph" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1270" y="890" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8hCnj22E3xY9b6OYlhSP-472" target="8hCnj22E3xY9b6OYlhSP-486">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-32" value="Job Title&lt;br&gt;Job Description&lt;br&gt;&lt;font color=&quot;#ef2525&quot;&gt;Pillar Weight for Experience Evidence&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-31">
+          <mxGeometry x="0.6597" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-35" target="hxTU1GFUpunnQTKSWMVg-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-35" target="hxTU1GFUpunnQTKSWMVg-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-35" value="A normalized score that represents the similarity between the input &lt;br&gt;(job title+job description) and each employee&#39;s Atlas professional summary &amp;amp; recent Atlas closeouts&lt;div style=&quot;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=center;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1494.5" y="1056" width="380" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="8hCnj22E3xY9b6OYlhSP-486" value="EXPERIENCE EVIDENCE SCORE" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="1542" y="1000" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-36" target="hxTU1GFUpunnQTKSWMVg-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-36" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Evaluate Similarity between:&lt;br&gt;1) Input job title+job descr, and&lt;br&gt;2) Each empl&#39;s Atlas professional summary (graph)&lt;br&gt;&lt;/span&gt;" style="label;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1452" y="1120" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-37" target="hxTU1GFUpunnQTKSWMVg-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-37" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Evaluate Similarity between:&lt;br&gt;1) Input job title+job descr, and&lt;br&gt;2) Each empl&#39;s recent Atlas closeouts (graph)&lt;br&gt;&lt;/span&gt;" style="label;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1692" y="1120" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-38" target="hxTU1GFUpunnQTKSWMVg-45">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-38" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;Compute Experience Evidence score for each empl, weighting similarity scores of their more recent Atlas closeouts heavier than old ones.&lt;br&gt;Example:&lt;br&gt;-weight Atlas prof sum similarity 40%&lt;br&gt;-weight most recent closeouts: 25%, 20%, 10%, 5% (decaying with age)&lt;br&gt;&lt;/span&gt;" style="label;whiteSpace=wrap;html=1;image=img/clipart/Gear_128x128.png" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1554.5" y="1208" width="260" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-45" target="hxTU1GFUpunnQTKSWMVg-56">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-53" value="Pillar Weight for Experience Evidence" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#e01a1a;" vertex="1" connectable="0" parent="hxTU1GFUpunnQTKSWMVg-49">
+          <mxGeometry x="0.215" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-45" value="EXPERIENCE EVIDENCE SCORE&lt;br&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;(for each empl in graph)&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1542" y="1360" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-47" target="hxTU1GFUpunnQTKSWMVg-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-47" value="&lt;div style=&quot;border-color: var(--border-color);&quot;&gt;Candidate Fit Score =&amp;nbsp;&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#ee2020&quot;&gt;weight&lt;/font&gt;*(Skill Evidence) +&lt;/div&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt; &lt;/span&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#d82222&quot;&gt;weight&lt;/font&gt;*(Role-History Evidence) +&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color);&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/span&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;font style=&quot;border-color: var(--border-color);&quot; color=&quot;#d61f1f&quot;&gt;weight&lt;/font&gt;*(Experience Evidence)&lt;div style=&quot;&quot;&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="830" y="1554" width="330" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-55" target="hxTU1GFUpunnQTKSWMVg-58">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=-0.05;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="hxTU1GFUpunnQTKSWMVg-55" target="hxTU1GFUpunnQTKSWMVg-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-55" value="Sort Employees by Candidate Fit Score &amp;amp; Display Top N to User" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="890" y="1640" width="210" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-56" value="CALCULATE CANDIDATE FIT SCORE FOR ALL EMPLOYEES" style="rounded=1;whiteSpace=wrap;html=1;fontStyle=1" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="852.5" y="1500" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-58" value="END" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="950" y="1730" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-60" value="This part alone may not be deterministic. A potential is to cache hashes of input job descr, extracted skills, and skill embeddings. And reuse if input is the same" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1430" y="410" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-61" value="Note: for reqs, we extract skills from a combined (job descr + required skills text + desired skills text)&lt;br&gt;Potential solution: don&#39;t separate desired/required skills, just use &quot;Skills&quot;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="340" y="520" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hxTU1GFUpunnQTKSWMVg-62" value="Potentially: Use LLM to explain why each of the top N empls are a good fit" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1220" y="1640" width="150" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
