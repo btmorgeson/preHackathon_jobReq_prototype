@@ -1,0 +1,41 @@
+# macOS/Editor
+.DS_Store
+.vscode/
+.idea/
+
+# Python/Node temp
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Data layers (large / generated)
+data/raw/**
+!data/raw/.gitkeep
+data/staged/**
+!data/staged/.gitkeep
+data/parquet/**
+!data/parquet/.gitkeep
+data/iceberg/**
+!data/iceberg/.gitkeep
+data/exports/**
+!data/exports/.gitkeep
+data/embeddings/**
+!data/embeddings/.gitkeep
+
+# Iceberg / Spark / warehouse artifacts
+warehouse/
+metastore_db/
+
+# Neo4j local artifacts
+neo4j-data/
+neo4j-logs/
+neo4j-import/
+
+# Notebook artifacts
+.ipynb_checkpoints/
