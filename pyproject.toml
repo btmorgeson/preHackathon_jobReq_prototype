@@ -1,0 +1,17 @@
+[project]
+name = "jobreq-prototype"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+  "neo4j>=5.0",
+  "fastapi",
+  "uvicorn",
+  "openai",
+  "httpx",
+  "duckdb",
+  "pandas",
+  "pyarrow",
+  "faker",
+  "numpy",
+  "python-dotenv",
+]
