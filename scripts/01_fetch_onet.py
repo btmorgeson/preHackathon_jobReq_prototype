@@ -13,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.pipeline.fetch.onet_fetcher import RAW_DIR, fetch_onet
+from src.pipeline.quality_checks import assert_onet_payload
 
 logging.basicConfig(
     level=logging.INFO,
@@ -24,6 +25,7 @@ logger = logging.getLogger(__name__)
 def main() -> None:
     logger.info("Starting O*NET fetch...")
     data = fetch_onet(RAW_DIR)
+    assert_onet_payload(data)
     occ_count = len(data["occupations"])
     skill_count = len(data["all_skills"])
     act_count = len(data["all_activities"])

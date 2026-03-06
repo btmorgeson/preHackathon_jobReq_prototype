@@ -10,10 +10,11 @@ Falls back to a hardcoded list of 35 SOC codes if the download fails.
 import io
 import json
 import logging
-import os
 import urllib.request
 import zipfile
 from pathlib import Path
+
+from src.config import get_settings
 
 logger = logging.getLogger(__name__)
 
@@ -95,9 +96,9 @@ def _download_and_extract(output_dir: Path) -> bool:
     """Download O*NET zip and extract to output_dir. Returns True on success."""
     logger.info("Downloading O*NET database from %s", ONET_ZIP_URL)
     try:
-        ssl_cert = os.environ.get("SSL_CERT_FILE", "C:/Users/e477258/combined_pem.pem")
+        settings = get_settings()
         import ssl
-        ctx = ssl.create_default_context(cafile=ssl_cert)
+        ctx = ssl.create_default_context(cafile=settings.ssl_cert_file)
 
         import urllib.request
         with urllib.request.urlopen(ONET_ZIP_URL, context=ctx, timeout=120) as resp:

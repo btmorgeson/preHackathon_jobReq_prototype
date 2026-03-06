@@ -1,45 +1,49 @@
 """Genesis API client for embeddings."""
 
-import os
-import time
+from __future__ import annotations
+
 import logging
+import time
+
 import httpx
 from openai import OpenAI
 
+from src.config import get_settings
+
 logger = logging.getLogger(__name__)
 
-SSL_CERT = os.environ.get("SSL_CERT_FILE", "C:/Users/e477258/combined_pem.pem")
-os.environ.setdefault("SSL_CERT_FILE", SSL_CERT)
-os.environ.setdefault("REQUESTS_CA_BUNDLE", SSL_CERT)
-
-GENESIS_BASE_URL = "https://api.ai.us.lmco.com/v1"
-GENESIS_ORG = "SKLZ"
-EMBEDDING_MODEL = "mxbai-embed-large-v1"
 BATCH_SIZE = 25
 
 
 def make_client() -> OpenAI:
-    key = os.environ["GENESIS_SKLZ_API_KEY"]
+    settings = get_settings()
+    if not settings.genesis_api_key:
+        raise RuntimeError("GENESIS_SKLZ_API_KEY is not set.")
+
     return OpenAI(
-        base_url=GENESIS_BASE_URL,
-        api_key=key,
-        default_headers={"openai-organization": GENESIS_ORG},
-        http_client=httpx.Client(verify=SSL_CERT),
+        base_url=settings.genesis_base_url,
+        api_key=settings.genesis_api_key,
+        default_headers={"openai-organization": settings.genesis_org},
+        http_client=httpx.Client(verify=settings.ssl_cert_file),
     )
 
 
 def embed_batch(client: OpenAI, texts: list[str]) -> list[list[float]]:
     """Embed a batch of texts with exponential backoff on rate limit (429)."""
+    settings = get_settings()
     max_retries = 5
     for attempt in range(max_retries):
         try:
-            resp = client.embeddings.create(model=EMBEDDING_MODEL, input=texts)
-            return [d.embedding for d in resp.data]
+            response = client.embeddings.create(
+                model=settings.genesis_embedding_model,
+                input=texts,
+            )
+            return [data.embedding for data in response.data]
         except Exception as exc:
             if attempt < max_retries - 1 and "429" in str(exc):
-                wait = 2 ** attempt
-                logger.warning("Rate limit hit, retrying in %ds...", wait)
-                time.sleep(wait)
+                wait_seconds = 2**attempt
+                logger.warning("Rate limit hit, retrying in %ds...", wait_seconds)
+                time.sleep(wait_seconds)
             else:
                 raise
     raise RuntimeError("embed_batch: max retries exceeded")

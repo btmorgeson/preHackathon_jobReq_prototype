@@ -2,14 +2,17 @@
 Neo4j bulk import and schema setup.
 
 Steps:
-1. Find Docker binary
-2. docker cp all node and edge CSVs into container /import/
-3. Stop Neo4j container
-4. Run neo4j-admin database import full
-5. Start container; poll health endpoint up to 60s
-6. Apply constraints and indexes
-7. Verify and log node/rel counts
+1. Find Docker binary.
+2. docker cp all node and edge CSVs into container /import/.
+3. Stop Neo4j container.
+4. Run neo4j-admin database import full.
+5. Start container; poll health endpoint up to 60s.
+6. Apply constraints and indexes.
+7. Verify and log node/rel counts.
 """
+
+from __future__ import annotations
+
 import logging
 import os
 import shutil
@@ -20,12 +23,11 @@ from pathlib import Path
 import httpx
 from neo4j import GraphDatabase
 
+from src.config import get_settings
+
 logger = logging.getLogger(__name__)
 
 CONTAINER_NAME = "neo4j-prototype"
-NEO4J_URI = os.environ.get("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_USER = os.environ.get("NEO4J_USER", "neo4j")
-NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD", "password12345")
 HEALTH_URL = "http://localhost:7474"
 HEALTH_TIMEOUT_S = 60
 
@@ -74,14 +76,13 @@ def _run(cmd: list[str], check: bool = True) -> subprocess.CompletedProcess:
     return result
 
 
-def _copy_csvs(docker: str, data_dir: Path) -> None:
-    """docker cp all node and edge CSVs into container /import/."""
+def _copy_csvs(docker: str, graph_export_dir: Path) -> None:
+    """Copy all node and edge CSVs into container /import/."""
     all_csvs = [(label, rel_path) for label, rel_path in NODE_CSVS + EDGE_CSVS]
-    for _label, rel_path in all_csvs:
-        local_path = data_dir / rel_path
+    for _, rel_path in all_csvs:
+        local_path = graph_export_dir / rel_path
         if not local_path.exists():
             raise RuntimeError(f"CSV not found: {local_path}")
-        container_dir = f"{CONTAINER_NAME}:/import/{Path(rel_path).parent}"
         _run([docker, "exec", CONTAINER_NAME, "mkdir", "-p", f"/import/{Path(rel_path).parent}"])
         _run([docker, "cp", str(local_path), f"{CONTAINER_NAME}:/import/{rel_path}"])
         logger.info("Copied %s -> container:/import/%s", local_path.name, rel_path)
@@ -92,21 +93,20 @@ def _stop_container(docker: str) -> None:
     _run([docker, "stop", CONTAINER_NAME])
 
 
-def _import_database(docker: str) -> None:
+def _import_database(docker: str, overwrite_destination: bool) -> None:
     """Run neo4j-admin database import full."""
-    node_args = [
-        f"--nodes={label}=/import/{rel_path}"
-        for label, rel_path in NODE_CSVS
-    ]
-    rel_args = [
-        f"--relationships={label}=/import/{rel_path}"
-        for label, rel_path in EDGE_CSVS
-    ]
+    node_args = [f"--nodes={label}=/import/{rel_path}" for label, rel_path in NODE_CSVS]
+    rel_args = [f"--relationships={label}=/import/{rel_path}" for label, rel_path in EDGE_CSVS]
     cmd = [
-        docker, "exec", CONTAINER_NAME,
-        "neo4j-admin", "database", "import", "full",
+        docker,
+        "exec",
+        CONTAINER_NAME,
+        "neo4j-admin",
+        "database",
+        "import",
+        "full",
         "--database=neo4j",
-        "--overwrite-destination=true",
+        f"--overwrite-destination={'true' if overwrite_destination else 'false'}",
         *node_args,
         *rel_args,
     ]
@@ -122,12 +122,12 @@ def _start_container(docker: str) -> None:
 
 def _wait_for_health() -> None:
     """Poll Neo4j HTTP health endpoint until ready or timeout."""
-    ssl_cert = os.environ.get("SSL_CERT_FILE", "C:/Users/e477258/combined_pem.pem")
+    settings = get_settings()
     deadline = time.time() + HEALTH_TIMEOUT_S
     logger.info("Waiting for Neo4j to become healthy at %s...", HEALTH_URL)
     while time.time() < deadline:
         try:
-            with httpx.Client(verify=ssl_cert, timeout=5.0) as http:
+            with httpx.Client(verify=settings.ssl_cert_file, timeout=5.0) as http:
                 resp = http.get(HEALTH_URL)
             if resp.status_code == 200:
                 logger.info("Neo4j is healthy.")
@@ -139,50 +139,85 @@ def _wait_for_health() -> None:
 
 
 def _apply_schema(driver) -> None:
-    """Apply constraints and indexes."""
     with driver.session() as session:
         for cypher in CONSTRAINTS:
-            logger.info("Applying: %s", cypher[:60])
+            logger.info("Applying: %s", cypher[:80])
             session.run(cypher)
-    logger.info("Schema applied.")
 
 
 def _verify_counts(driver) -> dict[str, int]:
-    """Return node and relationship counts by label/type."""
     counts = {}
     with driver.session() as session:
         for label, _ in NODE_CSVS:
             result = session.run(f"MATCH (n:{label}) RETURN count(n) AS cnt").single()
             counts[label] = result["cnt"]
         for rel_type, _ in EDGE_CSVS:
-            result = session.run(
-                f"MATCH ()-[r:{rel_type}]->() RETURN count(r) AS cnt"
-            ).single()
+            result = session.run(f"MATCH ()-[r:{rel_type}]->() RETURN count(r) AS cnt").single()
             counts[rel_type] = result["cnt"]
     return counts
 
 
-def run_import(data_dir: str = "data") -> dict[str, int]:
+def _existing_counts_if_available() -> dict[str, int] | None:
+    settings = get_settings()
+    driver = GraphDatabase.driver(
+        settings.neo4j_uri,
+        auth=(settings.neo4j_user, settings.neo4j_password),
+    )
+    try:
+        counts = _verify_counts(driver)
+        person_count = counts.get("Person", 0)
+        if person_count > 0:
+            return counts
+        return None
+    except Exception:
+        return None
+    finally:
+        driver.close()
+
+
+def run_import(
+    graph_export_dir: str = "data/exports/graph",
+    overwrite_destination: bool = True,
+) -> dict[str, int]:
     """
     Full import workflow. Returns node/rel counts on success.
 
     Args:
-        data_dir: Path to directory containing nodes/ and edges/ subdirectories.
+        graph_export_dir: Path containing nodes/ and edges/ CSV subdirectories.
+        overwrite_destination: If False and data already exists, skip re-import.
     """
-    data_path = Path(data_dir).resolve()
-    if not data_path.is_dir():
-        raise RuntimeError(f"Data directory not found: {data_path}")
+    export_path = Path(graph_export_dir).resolve()
+    if not export_path.is_dir():
+        raise RuntimeError(f"Graph export directory not found: {export_path}")
+
+    nodes_path = export_path / "nodes"
+    edges_path = export_path / "edges"
+    if not nodes_path.is_dir() or not edges_path.is_dir():
+        raise RuntimeError(
+            f"Expected nodes/ and edges/ in {export_path}. "
+            f"Run scripts/03_build_graph_csv.py first."
+        )
+
+    if not overwrite_destination:
+        existing_counts = _existing_counts_if_available()
+        if existing_counts:
+            logger.info("Existing graph detected; skipping import because overwrite is disabled.")
+            return existing_counts
 
     docker = _find_docker()
     logger.info("Using Docker at: %s", docker)
 
-    _copy_csvs(docker, data_path)
+    _copy_csvs(docker, export_path)
     _stop_container(docker)
-    _import_database(docker)
+    _import_database(docker, overwrite_destination=overwrite_destination)
     _start_container(docker)
     _wait_for_health()
 
-    driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+    settings = get_settings()
+    driver = GraphDatabase.driver(
+        settings.neo4j_uri,
+        auth=(settings.neo4j_user, settings.neo4j_password),
+    )
     try:
         _apply_schema(driver)
         counts = _verify_counts(driver)
@@ -190,6 +225,5 @@ def run_import(data_dir: str = "data") -> dict[str, int]:
         driver.close()
 
     for name, count in counts.items():
-        logger.info("  %s: %d", name, count)
-
+        logger.info("%s: %d", name, count)
     return counts

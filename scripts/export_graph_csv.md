@@ -1,41 +1,28 @@
 # Export Graph CSV
 
 ## Goal
-Create deterministic node/edge CSV outputs for Neo4j bulk import.
+Create deterministic Neo4j import CSVs from generated Parquet data.
 
-## Example Export (DuckDB from Parquet)
+## Standard Command
 ```bash
-mkdir -p data/exports/graph
-
-duckdb <<'SQL'
-COPY (
-  SELECT
-    stable_id AS postingId,
-    title,
-    source_system,
-    source_id,
-    stable_id,
-    version,
-    'Posting' AS label
-  FROM 'data/parquet/usajobs/postings.parquet'
-) TO 'data/exports/graph/posting.csv' (HEADER, DELIMITER ',');
-SQL
+python scripts/03_build_graph_csv.py
 ```
 
-## Header Files
-Create matching headers:
-```bash
-cat > data/exports/graph/posting_header.csv <<'CSV'
-postingId:ID(Posting),title:string,source_system:string,source_id:string,stable_id:string,version:string,:LABEL
-CSV
-```
-
-## Deterministic IDs
-- Use `stable_id = sha256(source_system|source_id|version)`.
-- Recompute consistently in every run.
+## Output Layout
+- `data/exports/graph/nodes/`
+  - `persons.csv`
+  - `roles.csv`
+  - `skills.csv`
+  - `chunks.csv`
+  - `postings.csv`
+- `data/exports/graph/edges/`
+  - `has_role.csv`
+  - `has_skill.csv`
+  - `has_chunk.csv`
+  - `requires_skill.csv`
 
 ## Validation
-```bash
-wc -l data/exports/graph/posting.csv
-head -n 5 data/exports/graph/posting.csv
-```
+`scripts/03_build_graph_csv.py` already verifies:
+- all expected files exist
+- each file has at least one row
+- LF line endings are used (required by import tooling)

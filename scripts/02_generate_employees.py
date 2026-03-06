@@ -16,6 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.pipeline.transform.synthetic_employees import OUTPUT_DIR, generate
+from src.pipeline.quality_checks import assert_generated_dataframes
 
 logging.basicConfig(
     level=logging.INFO,
@@ -35,17 +36,14 @@ def main() -> None:
 
     logger.info("Generating synthetic employees...")
     dfs = generate(onet_data, OUTPUT_DIR)
+    assert_generated_dataframes(dfs)
 
     print("\nSynthetic data generation complete:")
     for name, df in dfs.items():
         print(f"  {name:<20} {len(df):>6} rows  ->  data/parquet/{name}.parquet")
 
-    # Validation checks
     persons_df = dfs["persons"]
-    assert len(persons_df) == 500, f"Expected 500 persons, got {len(persons_df)}"
-    assert persons_df["stable_id"].nunique() == 500, "Duplicate person stable_ids found"
     chunks_df = dfs["chunks"]
-    assert len(chunks_df) >= 500, f"Expected >= 500 chunks, got {len(chunks_df)}"
     print(f"\nValidation passed:")
     print(f"  Persons        : {len(persons_df)} (expected 500)")
     print(f"  Unique IDs     : {persons_df['stable_id'].nunique()}")

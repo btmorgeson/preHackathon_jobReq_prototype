@@ -19,18 +19,19 @@ function SkillChip({
 }) {
   const colorClass =
     variant === "required"
-      ? "bg-blue-100 text-blue-800 border-blue-300"
-      : "bg-gray-100 text-gray-700 border-gray-300";
+      ? "border-[#62c2df] bg-[#e5f8fd] text-[#0f5069]"
+      : "border-[#b8cadd] bg-[#f3f7fb] text-[var(--ink-700)]";
 
   return (
     <span
-      className={`inline-flex items-center gap-1 px-2 py-1 rounded-full border text-sm font-medium ${colorClass}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold md:text-sm ${colorClass}`}
     >
       {skill}
       <button
         onClick={onRemove}
-        className="ml-1 hover:opacity-70 leading-none"
+        className="rounded-full px-1 text-base leading-none transition-opacity hover:opacity-65"
         aria-label={`Remove ${skill}`}
+        type="button"
       >
         &times;
       </button>
@@ -41,9 +42,11 @@ function SkillChip({
 function SkillInput({
   onAdd,
   placeholder,
+  disabled,
 }: {
   onAdd: (skill: string) => void;
   placeholder: string;
+  disabled?: boolean;
 }) {
   const [value, setValue] = useState("");
 
@@ -56,21 +59,64 @@ function SkillInput({
   };
 
   return (
-    <div className="flex gap-2 mt-2">
+    <div className="flex flex-col gap-2 md:flex-row">
       <input
         type="text"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleAdd()}
         placeholder={placeholder}
-        className="flex-1 border border-gray-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="h-10 flex-1 rounded-xl border border-[var(--line-300)] bg-white px-3 text-sm text-[var(--ink-900)] shadow-sm transition-colors placeholder:text-[var(--ink-600)] focus:border-[var(--accent-500)] focus:outline-none"
+        disabled={disabled}
       />
       <button
         onClick={handleAdd}
-        className="px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
+        className="h-10 rounded-xl border border-transparent bg-[var(--accent-500)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--accent-600)] disabled:cursor-not-allowed disabled:bg-[var(--line-300)]"
+        disabled={disabled}
+        type="button"
       >
         Add
       </button>
+    </div>
+  );
+}
+
+function SkillGroup({
+  title,
+  caption,
+  skills,
+  variant,
+  onRemove,
+  onAdd,
+}: {
+  title: string;
+  caption: string;
+  skills: string[];
+  variant: "required" | "desired";
+  onRemove: (index: number) => void;
+  onAdd: (skill: string) => void;
+}) {
+  return (
+    <div className="rounded-2xl border border-[var(--line-200)] bg-[rgba(255,255,255,0.85)] px-4 py-4 shadow-sm">
+      <div className="mb-3">
+        <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--ink-600)]">{title}</h3>
+        <p className="mt-1 text-sm text-[var(--ink-700)]">{caption}</p>
+      </div>
+      <div className="mb-3 flex min-h-9 flex-wrap gap-2">
+        {skills.length > 0 ? (
+          skills.map((skillName, index) => (
+            <SkillChip
+              key={`${variant}-${skillName}-${index}`}
+              skill={skillName}
+              variant={variant}
+              onRemove={() => onRemove(index)}
+            />
+          ))
+        ) : (
+          <p className="text-xs text-[var(--ink-600)]">No skills added yet.</p>
+        )}
+      </div>
+      <SkillInput onAdd={onAdd} placeholder={`Add ${variant} skill...`} />
     </div>
   );
 }
@@ -100,39 +146,22 @@ export default function SkillEditor({
 
   return (
     <div className="space-y-4">
-      <div>
-        <h3 className="text-sm font-semibold text-gray-700 mb-1">
-          Required Skills
-        </h3>
-        <div className="flex flex-wrap gap-2 min-h-8">
-          {requiredSkills.map((s, i) => (
-            <SkillChip
-              key={`req-${i}`}
-              skill={s}
-              variant="required"
-              onRemove={() => removeRequired(i)}
-            />
-          ))}
-        </div>
-        <SkillInput onAdd={addRequired} placeholder="Add required skill..." />
-      </div>
-
-      <div>
-        <h3 className="text-sm font-semibold text-gray-700 mb-1">
-          Desired Skills
-        </h3>
-        <div className="flex flex-wrap gap-2 min-h-8">
-          {desiredSkills.map((s, i) => (
-            <SkillChip
-              key={`des-${i}`}
-              skill={s}
-              variant="desired"
-              onRemove={() => removeDesired(i)}
-            />
-          ))}
-        </div>
-        <SkillInput onAdd={addDesired} placeholder="Add desired skill..." />
-      </div>
+      <SkillGroup
+        title="Required Skills"
+        caption="Critical capabilities that strongly influence ranking."
+        skills={requiredSkills}
+        variant="required"
+        onRemove={removeRequired}
+        onAdd={addRequired}
+      />
+      <SkillGroup
+        title="Desired Skills"
+        caption="Secondary strengths used to break close candidate ties."
+        skills={desiredSkills}
+        variant="desired"
+        onRemove={removeDesired}
+        onAdd={addDesired}
+      />
     </div>
   );
 }

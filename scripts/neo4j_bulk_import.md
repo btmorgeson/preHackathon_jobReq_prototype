@@ -1,42 +1,55 @@
 # Neo4j Bulk Import Runbook
 
 ## Goal
-Import graph CSV exports into Neo4j and apply baseline schema.
+Import generated graph CSV exports into Neo4j and apply baseline schema.
 
 ## Preconditions
-- `data/exports/graph/*.csv` and header files exist.
-- Files copied into Neo4j import volume path.
+- Graph CSV exports exist:
+  - `data/exports/graph/nodes/*.csv`
+  - `data/exports/graph/edges/*.csv`
+- One Neo4j runtime is available:
+  - Vagrant VM (primary): `vagrant up`
+  - Docker container (alternate): `docker compose up -d neo4j`
 
-## Copy into Import Volume
+## Standard Command (Vagrant / work machine default)
 ```bash
-docker compose up -d neo4j
-
-docker cp data/exports/graph/. neo4j-prototype:/import/
+vagrant ssh -c "bash /workspace/scripts/vagrant/reset_and_import.sh"
 ```
 
-## Offline Import
+## Docker Alternate
 ```bash
-docker compose stop neo4j
+python scripts/04_neo4j_import.py
+```
 
-docker run --rm \
-  -v neo4j_data:/data \
-  -v neo4j_import:/import \
-  neo4j:2026.01.4-community-ubi10 \
-  neo4j-admin database import full \
-  --overwrite-destination=true \
-  --nodes=Posting=/import/posting_header.csv,/import/posting.csv \
-  neo4j
+## Reuse Existing Graph (Docker path only, skip destructive re-import)
+```bash
+python scripts/04_neo4j_import.py --reuse-existing
+```
 
-docker compose start neo4j
+## Custom Export Directory (Docker path only)
+```bash
+python scripts/04_neo4j_import.py --graph-export-dir data/exports/graph
+```
+
+## Neo4j 5.26 Import CLI Note
+- On Neo4j `5.26.x`, `neo4j-admin database import full` expects the database name as a positional argument.
+- Correct pattern:
+```bash
+neo4j-admin database import full neo4j --overwrite-destination=true ...
+```
+- Avoid old flag form:
+```bash
+neo4j-admin database import full --database=neo4j ...
 ```
 
 ## Post-Import Checks
 ```bash
-docker exec -it neo4j-prototype cypher-shell -u neo4j -p password12345 \
-  "MATCH (p:Posting) RETURN count(p) AS postings;"
+vagrant ssh -c "cypher-shell -u neo4j -p password12345 \"MATCH (p:Person) RETURN count(p) AS people;\""
+vagrant ssh -c "cypher-shell -u neo4j -p password12345 \"MATCH (po:Posting) RETURN count(po) AS postings;\""
 ```
 
-## Rollback
-- Stop container.
-- Remove and recreate `neo4j_data` volume.
-- Re-run import from known-good exports.
+Docker equivalent:
+```bash
+docker exec -it neo4j-prototype cypher-shell -u neo4j -p password12345 "MATCH (p:Person) RETURN count(p) AS people;"
+docker exec -it neo4j-prototype cypher-shell -u neo4j -p password12345 "MATCH (po:Posting) RETURN count(po) AS postings;"
+```

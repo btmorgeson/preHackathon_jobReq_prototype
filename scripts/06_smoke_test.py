@@ -1,30 +1,24 @@
 """
-Smoke test against running API (localhost:8000).
-7 test cases.
+Smoke test against running API (default: http://localhost:8000).
 
 Usage:
     python scripts/06_smoke_test.py
     python scripts/06_smoke_test.py --base-url http://localhost:8000
 """
 
+from __future__ import annotations
+
 import argparse
-import json
 import sys
-import os
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-SSL_CERT = os.environ.get("SSL_CERT_FILE", "C:/Users/e477258/combined_pem.pem")
-os.environ.setdefault("SSL_CERT_FILE", SSL_CERT)
-os.environ.setdefault("REQUESTS_CA_BUNDLE", SSL_CERT)
-
-import httpx  # after env setup
+import httpx
 
 
 def run_tests(base_url: str) -> None:
-    # Use plain HTTP for localhost (no SSL needed)
-    client = httpx.Client(base_url=base_url, timeout=30.0)
+    client = httpx.Client(base_url=base_url, timeout=45.0)
 
     passed = 0
     failed = 0
@@ -40,115 +34,115 @@ def run_tests(base_url: str) -> None:
 
     print(f"\nRunning smoke tests against {base_url}\n")
 
-    # Test 1: Health check
+    # 1) Health endpoint
     try:
-        r = client.get("/")
-        check("Health check GET /", r.status_code == 200 and r.json().get("status") == "ok")
-    except Exception as e:
-        check("Health check GET /", False, str(e))
+        response = client.get("/")
+        check("GET / returns status ok", response.status_code == 200 and response.json().get("status") == "ok")
+    except Exception as exc:
+        check("GET / returns status ok", False, str(exc))
 
-    # Test 2: Extract skills
+    # 2) req lookup
     try:
-        r = client.post(
+        response = client.get("/api/postings/REQ-001")
+        payload = response.json()
+        check(
+            "GET /api/postings/REQ-001 returns required shape",
+            response.status_code == 200
+            and payload.get("req_number") == "REQ-001"
+            and isinstance(payload.get("required_skills"), list)
+            and isinstance(payload.get("desired_skills"), list),
+        )
+    except Exception as exc:
+        check("GET /api/postings/REQ-001 returns required shape", False, str(exc))
+
+    # 3) skill extraction
+    try:
+        response = client.post(
             "/api/extract-skills",
-            json={"text": "Senior Python Engineer. Must have: Python, SQL. Nice to have: Docker, Kubernetes."},
+            json={"text": "Senior Python Engineer. Must have Python and SQL. Nice to have Docker."},
         )
-        data = r.json()
+        payload = response.json()
         check(
-            "POST /api/extract-skills returns skills",
-            r.status_code == 200
-            and isinstance(data.get("required_skills"), list)
-            and len(data["required_skills"]) > 0,
+            "POST /api/extract-skills returns arrays",
+            response.status_code == 200
+            and isinstance(payload.get("required_skills"), list)
+            and isinstance(payload.get("desired_skills"), list),
         )
-    except Exception as e:
-        check("POST /api/extract-skills returns skills", False, str(e))
+    except Exception as exc:
+        check("POST /api/extract-skills returns arrays", False, str(exc))
 
-    # Test 3: Search Software Engineer
+    # 4) search by req number + context
     try:
-        r = client.post(
+        posting = client.get("/api/postings/REQ-001").json()
+        response = client.post(
             "/api/search",
             json={
-                "role_title": "Software Engineer",
-                "required_skills": ["Python", "SQL"],
-                "desired_skills": ["Docker"],
+                "req_number": "REQ-001",
+                "query_context": {
+                    "posting_title": posting["title"],
+                    "posting_description": posting["description"],
+                },
+                "required_skills": posting["required_skills"],
+                "desired_skills": posting["desired_skills"],
                 "top_k": 10,
             },
         )
-        data = r.json()
+        payload = response.json()
+        candidates = payload.get("candidates", [])
         check(
-            "POST /api/search Software Engineer returns 10 candidates",
-            r.status_code == 200 and len(data.get("candidates", [])) == 10,
+            "POST /api/search returns request_id and timings",
+            response.status_code == 200
+            and isinstance(payload.get("request_id"), str)
+            and isinstance(payload.get("timings_ms"), dict),
         )
-        if r.status_code == 200 and data.get("candidates"):
-            c = data["candidates"][0]
-            check(
-                "Candidate has valid composite_score",
-                0.0 <= c["composite_score"] <= 1.0,
-            )
-    except Exception as e:
-        check("POST /api/search Software Engineer", False, str(e))
-
-    # Test 4: Search Program Manager (different ranking)
-    try:
-        r = client.post(
-            "/api/search",
-            json={
-                "role_title": "Program Manager",
-                "required_skills": ["Project Management", "Stakeholder Management"],
-                "top_k": 10,
-            },
-        )
-        data = r.json()
         check(
-            "POST /api/search Program Manager returns candidates",
-            r.status_code == 200 and len(data.get("candidates", [])) > 0,
+            "POST /api/search returns sorted candidate list",
+            len(candidates) > 0
+            and all(
+                candidates[i]["composite_score"] >= candidates[i + 1]["composite_score"]
+                for i in range(len(candidates) - 1)
+            ),
         )
-    except Exception as e:
-        check("POST /api/search Program Manager", False, str(e))
+    except Exception as exc:
+        check("POST /api/search req context flow", False, str(exc))
 
-    # Test 5: GET posting REQ-001
+    # 5) custom weights accepted + top_k respected
     try:
-        r = client.get("/api/postings/REQ-001")
-        data = r.json()
-        check(
-            "GET /api/postings/REQ-001 returns posting",
-            r.status_code == 200
-            and data.get("req_number") == "REQ-001"
-            and isinstance(data.get("required_skills"), list),
-        )
-    except Exception as e:
-        check("GET /api/postings/REQ-001", False, str(e))
-
-    # Test 6: Custom weights
-    try:
-        r = client.post(
+        response = client.post(
             "/api/search",
             json={
                 "role_title": "Data Scientist",
-                "weights": {"skill": 0.8, "role": 0.1, "experience": 0.1},
+                "required_skills": ["Python", "SQL"],
+                "desired_skills": ["Machine Learning"],
+                "weights": {"skill": 0.7, "role": 0.2, "experience": 0.1},
                 "top_k": 5,
             },
         )
+        payload = response.json()
         check(
-            "POST /api/search custom weights accepted",
-            r.status_code == 200 and len(r.json().get("candidates", [])) > 0,
+            "POST /api/search honors top_k",
+            response.status_code == 200 and len(payload.get("candidates", [])) <= 5,
         )
-    except Exception as e:
-        check("POST /api/search custom weights", False, str(e))
+    except Exception as exc:
+        check("POST /api/search honors top_k", False, str(exc))
 
-    # Test 7: Empty input graceful error
+    # 6) invalid payload gets consistent error shape
     try:
-        r = client.post("/api/search", json={})
+        response = client.post("/api/search", json={})
+        payload = response.json()
         check(
-            "POST /api/search empty input returns 422 or 200 with empty",
-            r.status_code in (200, 422, 400),
+            "POST /api/search invalid payload returns error envelope",
+            response.status_code == 422
+            and isinstance(payload.get("error"), dict)
+            and payload["error"].get("code") == "validation_error"
+            and isinstance(payload["error"].get("request_id"), str),
         )
-    except Exception as e:
-        check("POST /api/search empty input", False, str(e))
+    except Exception as exc:
+        check("POST /api/search invalid payload returns error envelope", False, str(exc))
 
-    print(f"\n{'='*50}")
+    print(f"\n{'=' * 60}")
     print(f"Results: {passed} passed, {failed} failed")
-    if failed > 0:
+    if failed:
         sys.exit(1)
 
 

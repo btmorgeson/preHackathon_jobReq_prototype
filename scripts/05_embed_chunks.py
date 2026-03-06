@@ -1,16 +1,24 @@
 """
-Phase 5: Embed Chunk and Role nodes, then create vector indexes.
+Phase 5: Embed Chunk and Role nodes, then ensure vector indexes.
 
 Usage:
     python scripts/05_embed_chunks.py
+    python scripts/05_embed_chunks.py --rebuild-embeddings
+    python scripts/05_embed_chunks.py --rebuild-indexes
+    python scripts/05_embed_chunks.py --rebuild-mentions
 
 Requires:
     - GENESIS_SKLZ_API_KEY set in environment
     - Neo4j container running and data already imported (run 04_neo4j_import.py first)
 """
+
+from __future__ import annotations
+
+import argparse
 import logging
-import os
 import sys
+
+from src.pipeline.embed.embed_pipeline import run_embed_pipeline
 
 logging.basicConfig(
     level=logging.INFO,
@@ -18,64 +26,44 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-NEO4J_URI = os.environ.get("NEO4J_URI", "bolt://localhost:7687")
-NEO4J_USER = os.environ.get("NEO4J_USER", "neo4j")
-NEO4J_PASSWORD = os.environ.get("NEO4J_PASSWORD", "password12345")
-
-VECTOR_INDEXES = [
-    (
-        "CALL db.index.vector.createNodeIndex('chunk_embedding_idx','Chunk','embedding',1024,'cosine')",
-        "chunk_embedding_idx",
-    ),
-    (
-        "CALL db.index.vector.createNodeIndex('role_title_idx','Role','title_embedding',1024,'cosine')",
-        "role_title_idx",
-    ),
-]
-
-
-def create_vector_indexes(driver) -> None:
-    """Create vector indexes for chunk and role embeddings."""
-    with driver.session() as session:
-        for cypher, index_name in VECTOR_INDEXES:
-            try:
-                session.run(cypher)
-                logger.info("Created vector index: %s", index_name)
-            except Exception as exc:
-                if "already exists" in str(exc).lower():
-                    logger.info("Vector index already exists (skipping): %s", index_name)
-                else:
-                    raise
-
 
 def main() -> None:
-    from neo4j import GraphDatabase
-    from src.pipeline.embed.embed_pipeline import run_embed_pipeline
+    parser = argparse.ArgumentParser(description="Embed chunks/roles and manage vector indexes.")
+    parser.add_argument(
+        "--rebuild-embeddings",
+        action="store_true",
+        help="Drop all existing embeddings and rebuild from scratch.",
+    )
+    parser.add_argument(
+        "--rebuild-indexes",
+        action="store_true",
+        help="Drop existing vector indexes and recreate them.",
+    )
+    parser.add_argument(
+        "--rebuild-mentions",
+        action="store_true",
+        help="Drop existing MENTIONS edges and relink from scratch.",
+    )
+    args = parser.parse_args()
 
     logger.info("Starting embedding pipeline...")
     try:
-        run_embed_pipeline()
-    except KeyError as exc:
-        logger.error("Missing required environment variable: %s", exc)
-        sys.exit(1)
+        result = run_embed_pipeline(
+            rebuild_embeddings=args.rebuild_embeddings,
+            rebuild_indexes=args.rebuild_indexes,
+            rebuild_mentions=args.rebuild_mentions,
+        )
     except Exception as exc:
         logger.error("Embed pipeline failed: %s", exc)
         sys.exit(1)
 
-    logger.info("Creating vector indexes...")
-    driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
-    try:
-        create_vector_indexes(driver)
-    except Exception as exc:
-        logger.error("Failed to create vector indexes: %s", exc)
-        sys.exit(1)
-    finally:
-        driver.close()
-
     print("\nEmbedding pipeline complete.")
-    print("Vector indexes created:")
-    for _, index_name in VECTOR_INDEXES:
-        print(f"  - {index_name}")
+    print(f"  Chunks embedded : {result['chunks_embedded']}")
+    print(f"  Roles embedded  : {result['roles_embedded']}")
+    print(f"  Mentions linked : {result['mentions_linked']}")
+    print("  Vector indexes  :")
+    for index_name in result["indexes"]:
+        print(f"    - {index_name}")
 
 
 if __name__ == "__main__":

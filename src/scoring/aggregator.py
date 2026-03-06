@@ -1,6 +1,12 @@
-"""Score aggregator — combine three pillars into composite CandidateResult."""
+"""Score aggregator — combine three pillars into composite CandidateResult.
+
+Delegates to HybridRetriever for graph-seeded candidate pool + vector re-rank.
+"""
+
+from __future__ import annotations
 
 import logging
+import time
 from dataclasses import dataclass
 from typing import Any
 
@@ -20,6 +26,43 @@ class CandidateResult:
     matched_skills: list[str]
 
 
+@dataclass
+class AggregateOutput:
+    candidates: list[CandidateResult]
+    timings_ms: dict[str, float]
+
+
+def _normalize_scores(scores: dict[str, float], person_ids: list[str]) -> dict[str, float]:
+    values = [scores.get(pid, 0.0) for pid in person_ids]
+    if not values:
+        return {}
+    min_score = min(values)
+    max_score = max(values)
+    if max_score <= min_score:
+        # If every score is identical, preserve "has evidence" as 1.0 and no-evidence as 0.0.
+        return {pid: 1.0 if scores.get(pid, 0.0) > 0 else 0.0 for pid in person_ids}
+    scale = max_score - min_score
+    return {
+        pid: (scores.get(pid, 0.0) - min_score) / scale
+        for pid in person_ids
+    }
+
+
+def _normalize_weights(weights: dict[str, float] | None) -> dict[str, float]:
+    defaults = {"skill": 0.4, "role": 0.3, "experience": 0.3}
+    if weights is None:
+        return defaults
+    merged = {**defaults, **weights}
+    total = merged["skill"] + merged["role"] + merged["experience"]
+    if total <= 0:
+        return defaults
+    return {
+        "skill": merged["skill"] / total,
+        "role": merged["role"] / total,
+        "experience": merged["experience"] / total,
+    }
+
+
 def aggregate(
     query_embedding: list[float],
     required_skills: list[str],
@@ -27,101 +70,59 @@ def aggregate(
     driver: Any,
     weights: dict[str, float] | None = None,
     top_k: int = 10,
-) -> list[CandidateResult]:
+    *,
+    posting_req_number: str | None = None,
+    use_llm_evidence: bool = True,
+) -> AggregateOutput:
+    """Run graph-seeded hybrid retrieval and return ranked CandidateResult list.
+
+    Two new keyword-only params (backward-compatible — existing callers unaffected):
+        posting_req_number: enables posting-based graph seed when set.
+        use_llm_evidence:   set False to skip the LLM call (faster, raw chunk text).
     """
-    Run all three pillars and combine scores.
-    weights defaults to {"skill": 0.4, "role": 0.3, "experience": 0.3}
-    Returns sorted list of CandidateResult (desc by composite_score).
-    """
-    from src.scoring.skill_pillar import score_skills
-    from src.scoring.role_history_pillar import score_role_history
-    from src.scoring.experience_pillar import score_experience
+    from src.graph.hybrid_retriever import HybridRetriever
+    from src.pipeline.embed.genesis_client import make_client
 
-    if weights is None:
-        weights = {"skill": 0.4, "role": 0.3, "experience": 0.3}
+    normalized_weights = _normalize_weights(weights)
 
-    # Get experience candidates (defines the candidate pool)
-    exp_scores = score_experience(query_embedding, driver)
-    if not exp_scores:
-        logger.warning("No experience scores returned — vector index may be empty")
-        return []
+    client = make_client()
+    retriever = HybridRetriever(driver, client)
 
-    candidate_ids = list(exp_scores.keys())
+    hybrid_results, stage_timings = retriever.retrieve(
+        query_embedding=query_embedding,
+        posting_req_number=posting_req_number,
+        required_skills=required_skills,
+        desired_skills=desired_skills,
+        weights=normalized_weights,
+        top_k=top_k,
+        use_llm_evidence=use_llm_evidence,
+    )
 
-    # Get role scores for candidate pool
-    role_scores_all = score_role_history(query_embedding, driver)
-
-    # Get skill scores for candidate pool
-    skill_scores = score_skills(candidate_ids, required_skills, desired_skills, driver)
-
-    # Fetch person info
-    with driver.session() as session:
-        persons = session.run(
-            "MATCH (p:Person) WHERE p.stable_id IN $ids "
-            "RETURN p.stable_id AS id, p.name AS name, p.current_title AS current_title",
-            ids=candidate_ids,
-        ).data()
-    person_info = {r["id"]: r for r in persons}
-
-    # Fetch top chunk text per person for evidence
-    with driver.session() as session:
-        chunk_records = session.run(
-            "CALL db.index.vector.queryNodes($idx, $top_k, $embedding) "
-            "YIELD node AS chunk, score "
-            "MATCH (p:Person)-[:HAS_CHUNK]->(chunk) "
-            "WHERE p.stable_id IN $ids "
-            "RETURN p.stable_id AS person_id, chunk.text AS text, score "
-            "ORDER BY score DESC",
-            idx="chunk_embedding_idx",
-            top_k=top_k * 5,
-            embedding=query_embedding,
-            ids=candidate_ids,
-        ).data()
-    evidence_map: dict[str, str] = {}
-    for r in chunk_records:
-        if r["person_id"] not in evidence_map:
-            evidence_map[r["person_id"]] = r["text"]
-
-    # Fetch matched skills per candidate
-    with driver.session() as session:
-        skill_records = session.run(
-            "MATCH (p:Person)-[:HAS_SKILL]->(s:Skill) "
-            "WHERE p.stable_id IN $ids "
-            "RETURN p.stable_id AS person_id, collect(s.name) AS skills",
-            ids=candidate_ids,
-        ).data()
-    person_skills_map = {r["person_id"]: r["skills"] for r in skill_records}
-    all_query_skills_lower = {s.lower() for s in required_skills + desired_skills}
-
-    results = []
-    for pid in candidate_ids:
-        exp_s = exp_scores.get(pid, 0.0)
-        role_s = role_scores_all.get(pid, 0.0)
-        skill_s = skill_scores.get(pid, 0.0)
-
-        composite = (
-            weights.get("skill", 0.4) * skill_s
-            + weights.get("role", 0.3) * role_s
-            + weights.get("experience", 0.3) * exp_s
+    if not hybrid_results:
+        logger.warning("HybridRetriever returned no results — check graph seed and vector indexes.")
+        timings = {**stage_timings, "total": sum(stage_timings.values())}
+        return AggregateOutput(
+            candidates=[],
+            timings_ms={k: round(v, 2) for k, v in timings.items()},
         )
 
-        info = person_info.get(pid, {})
-        matched = [
-            s for s in person_skills_map.get(pid, [])
-            if s.lower() in all_query_skills_lower
-        ]
+    results: list[CandidateResult] = [
+        CandidateResult(
+            person_stable_id=r.person_stable_id,
+            name=r.name,
+            current_title=r.current_title,
+            composite_score=r.composite_score,
+            skill_score=r.graph_skill_score,
+            role_score=r.role_score,
+            experience_score=r.vector_chunk_score,
+            evidence=r.evidence,
+            matched_skills=r.matched_skills,
+        )
+        for r in hybrid_results
+    ]
 
-        results.append(CandidateResult(
-            person_stable_id=pid,
-            name=info.get("name", "Unknown"),
-            current_title=info.get("current_title", ""),
-            composite_score=round(composite, 4),
-            skill_score=round(skill_s, 4),
-            role_score=round(role_s, 4),
-            experience_score=round(exp_s, 4),
-            evidence=evidence_map.get(pid, ""),
-            matched_skills=matched,
-        ))
-
-    results.sort(key=lambda r: r.composite_score, reverse=True)
-    return results[:top_k]
+    timings = {**stage_timings, "total": sum(stage_timings.values())}
+    return AggregateOutput(
+        candidates=results,
+        timings_ms={k: round(v, 2) for k, v in timings.items()},
+    )

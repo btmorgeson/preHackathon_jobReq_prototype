@@ -1,7 +1,8 @@
 """FastAPI dependencies — Neo4j driver singleton."""
 
-import os
 from neo4j import GraphDatabase, Driver
+
+from src.config import get_settings
 
 _driver: Driver | None = None
 
@@ -9,10 +10,11 @@ _driver: Driver | None = None
 def get_driver() -> Driver:
     global _driver
     if _driver is None:
-        uri = os.environ.get("NEO4J_URI", "bolt://localhost:7687")
-        user = os.environ.get("NEO4J_USER", "neo4j")
-        password = os.environ.get("NEO4J_PASSWORD", "password12345")
-        _driver = GraphDatabase.driver(uri, auth=(user, password))
+        settings = get_settings()
+        _driver = GraphDatabase.driver(
+            settings.neo4j_uri,
+            auth=(settings.neo4j_user, settings.neo4j_password),
+        )
     return _driver
 
 

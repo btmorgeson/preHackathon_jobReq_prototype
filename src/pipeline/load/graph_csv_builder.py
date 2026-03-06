@@ -35,9 +35,9 @@ def build_node_csvs(parquet_dir: Path = PARQUET_DIR, nodes_dir: Path = NODES_DIR
     path = nodes_dir / "persons.csv"
     with _open_csv(path)[0] as f:
         w = csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator="\n")
-        w.writerow([":ID(Person)", "name", "employee_id", "current_title", ":LABEL"])
+        w.writerow([":ID(Person)", "stable_id", "name", "employee_id", "current_title", ":LABEL"])
         for _, row in persons_df.iterrows():
-            w.writerow([row["stable_id"], row["name"], row["employee_id"], row["current_title"], "Person"])
+            w.writerow([row["stable_id"], row["stable_id"], row["name"], row["employee_id"], row["current_title"], "Person"])
     logger.info("Wrote persons.csv (%d rows)", len(persons_df))
 
     # roles.csv
@@ -45,9 +45,10 @@ def build_node_csvs(parquet_dir: Path = PARQUET_DIR, nodes_dir: Path = NODES_DIR
     path = nodes_dir / "roles.csv"
     with open(path, "w", newline="\n", encoding="utf-8") as f:
         w = csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator="\n")
-        w.writerow([":ID(Role)", "title", "soc_code", "start_date", "end_date", "is_current:boolean", ":LABEL"])
+        w.writerow([":ID(Role)", "stable_id", "title", "soc_code", "start_date", "end_date", "is_current:boolean", ":LABEL"])
         for _, row in roles_df.iterrows():
             w.writerow([
+                row["stable_id"],
                 row["stable_id"],
                 row["title"],
                 row["soc_code"],
@@ -63,9 +64,9 @@ def build_node_csvs(parquet_dir: Path = PARQUET_DIR, nodes_dir: Path = NODES_DIR
     path = nodes_dir / "skills.csv"
     with open(path, "w", newline="\n", encoding="utf-8") as f:
         w = csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator="\n")
-        w.writerow([":ID(Skill)", "name", ":LABEL"])
+        w.writerow([":ID(Skill)", "stable_id", "name", ":LABEL"])
         for _, row in skills_df.iterrows():
-            w.writerow([row["stable_id"], row["name"], "Skill"])
+            w.writerow([row["stable_id"], row["stable_id"], row["name"], "Skill"])
     logger.info("Wrote skills.csv (%d rows)", len(skills_df))
 
     # chunks.csv
@@ -73,9 +74,9 @@ def build_node_csvs(parquet_dir: Path = PARQUET_DIR, nodes_dir: Path = NODES_DIR
     path = nodes_dir / "chunks.csv"
     with open(path, "w", newline="\n", encoding="utf-8") as f:
         w = csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator="\n")
-        w.writerow([":ID(Chunk)", "text", "chunk_type", ":LABEL"])
+        w.writerow([":ID(Chunk)", "stable_id", "text", "chunk_type", ":LABEL"])
         for _, row in chunks_df.iterrows():
-            w.writerow([row["stable_id"], row["text"], row["chunk_type"], "Chunk"])
+            w.writerow([row["stable_id"], row["stable_id"], row["text"], row["chunk_type"], "Chunk"])
     logger.info("Wrote chunks.csv (%d rows)", len(chunks_df))
 
     # postings.csv
@@ -83,9 +84,9 @@ def build_node_csvs(parquet_dir: Path = PARQUET_DIR, nodes_dir: Path = NODES_DIR
     path = nodes_dir / "postings.csv"
     with open(path, "w", newline="\n", encoding="utf-8") as f:
         w = csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator="\n")
-        w.writerow([":ID(Posting)", "req_number", "title", "description", ":LABEL"])
+        w.writerow([":ID(Posting)", "stable_id", "req_number", "title", "description", ":LABEL"])
         for _, row in postings_df.iterrows():
-            w.writerow([row["stable_id"], row["req_number"], row["title"], row["description"], "Posting"])
+            w.writerow([row["stable_id"], row["stable_id"], row["req_number"], row["title"], row["description"], "Posting"])
     logger.info("Wrote postings.csv (%d rows)", len(postings_df))
 
 

@@ -10,25 +10,37 @@ This documentation pack provides a reproducible, official-source-first path to s
 - How to build chunk + embedding + entity-link workflows for Neo4j GraphRAG.
 
 ## Prerequisites
-- Docker Engine + Docker Compose v2.
+- Vagrant + VirtualBox (primary local Neo4j runtime).
+- Docker Engine + Docker Compose v2 (alternate local Neo4j runtime).
 - `curl`, `jq`, and a shell (`bash`/`zsh`/PowerShell equivalent).
 - Optional: `duckdb`, Python 3.10+, Java 17 (for local Spark tooling).
 
 ## Quickstart
-1. Start local infra:
-   - `docker compose up -d`
-2. Review datasets and small-sample fetch workflow:
+1. Boot Neo4j runtime (Vagrant-first):
+   - `vagrant up`
+2. Build graph CSV exports:
+   - `python scripts/03_build_graph_csv.py`
+3. Create a fresh Neo4j graph database in the VM:
+   - `vagrant ssh -c "bash /workspace/scripts/vagrant/reset_and_import.sh"`
+4. Optional host-level connectivity checks:
+   - `http://localhost:7474` (HTTP)
+   - `bolt://localhost:7687` (Bolt)
+5. Review datasets and small-sample fetch workflow:
    - [`datasets/README.md`](datasets/README.md)
    - [`scripts/fetch_datasets.md`](../scripts/fetch_datasets.md)
-3. Convert samples to parquet:
+6. Convert samples to parquet:
    - [`scripts/convert_to_parquet.md`](../scripts/convert_to_parquet.md)
-4. Build Iceberg tables:
+7. Build Iceberg tables:
    - [`scripts/build_iceberg_tables.md`](../scripts/build_iceberg_tables.md)
-5. Export graph CSVs + bulk import:
+8. Export graph CSVs + bulk import:
    - [`scripts/export_graph_csv.md`](../scripts/export_graph_csv.md)
    - [`scripts/neo4j_bulk_import.md`](../scripts/neo4j_bulk_import.md)
-6. Enable GraphRAG retrieval flow:
+9. Enable GraphRAG retrieval flow:
    - [`graphrag/neo4j/README.md`](graphrag/neo4j/README.md)
+
+### Docker Alternate (if not using Vagrant)
+1. `docker compose up -d`
+2. `python scripts/04_neo4j_import.py`
 
 ## Deep Dive
 ### Recommended Reading Order
@@ -110,13 +122,14 @@ US datasets (APIs/files)
 
 ### Platform Notes
 - macOS/Linux: commands in this pack run as written (bash/zsh).
-- Windows: use WSL2 when possible; for PowerShell, adapt path separators and quoting.
+- Windows (work machine): Vagrant + VirtualBox is the validated default. Use PowerShell command forms from the root [`README.md`](../README.md).
 
 ## Common Mistakes / Gotchas
 - Downloading entire datasets into git-tracked paths.
 - Mixing mutable and immutable raw files.
 - Storing full raw text in core domain nodes instead of chunk/document nodes.
 - Running `neo4j-admin import` against a running Neo4j DBMS.
+- Using old Neo4j import syntax on Neo4j 5.26+; use positional DB name form: `neo4j-admin database import full neo4j ...`.
 
 ## Official Sources
 - Neo4j Docker + operations manual: https://neo4j.com/docs/operations-manual/current/docker/introduction/ (Accessed: 2026-03-03, Version: Neo4j 2026.01 docs branch)

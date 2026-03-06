@@ -15,3 +15,8 @@ dependencies = [
   "numpy",
   "python-dotenv",
 ]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+]

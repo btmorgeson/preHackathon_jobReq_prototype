@@ -21,6 +21,7 @@ from src.pipeline.load.graph_csv_builder import (
     PARQUET_DIR,
     build_all,
 )
+from src.pipeline.quality_checks import assert_graph_csv_exports
 
 logging.basicConfig(
     level=logging.INFO,
@@ -49,6 +50,7 @@ def _check_no_crlf(path: Path) -> bool:
 
 def main() -> None:
     build_all(PARQUET_DIR, NODES_DIR, EDGES_DIR)
+    assert_graph_csv_exports(Path("data/exports/graph"))
 
     print("\nVerifying output files:")
     all_ok = True
