@@ -13,13 +13,13 @@
 The user mentioned "for the sklz model api we use vagrant and virtual box." We knew the `model-api` project lives at:
 
 ```
-C:/Users/e477258/Documents/dev/model-api/
+C:/Users/%USERNAME%/Documents/dev/model-api/
 ```
 
 We listed the directory contents:
 
 ```bash
-ls /c/Users/e477258/Documents/dev/model-api/
+ls /c/Users/%USERNAME%/Documents/dev/model-api/
 ```
 
 Output revealed: `Vagrantfile`, `database.env`, `rest.env`, `docker-compose.yml`, `app/`, etc.
@@ -109,18 +109,18 @@ d.close()
 
 The LMCO corporate network requires a custom SSL certificate for all HTTPS calls:
 
-- **Path**: `C:/Users/e477258/combined_pem.pem`
+- **Path**: `C:/Users/%USERNAME%/combined_pem.pem`
 - **Source**: Download from `http://crl.external.lmco.com/trust/pem/combined/Combined_pem.pem`
 - **Already hardcoded** in `src/config.py` as `DEFAULT_SSL_CERT_PATH`
 
 ```python
-DEFAULT_SSL_CERT_PATH = "C:/Users/e477258/combined_pem.pem"
+DEFAULT_SSL_CERT_PATH = "C:/Users/%USERNAME%/combined_pem.pem"
 ```
 
 **Critical**: `httpx` does NOT read `REQUESTS_CA_BUNDLE` env var automatically. Must pass explicitly:
 ```python
 import httpx, os
-cert = "C:/Users/e477258/combined_pem.pem"
+cert = "C:/Users/%USERNAME%/combined_pem.pem"
 client = httpx.Client(verify=cert)
 ```
 
@@ -142,8 +142,8 @@ GENESIS_BASE_URL=https://api.ai.us.lmco.com/v1
 GENESIS_ORG=SKLZ
 
 # SSL
-SSL_CERT_FILE=C:/Users/e477258/combined_pem.pem
-REQUESTS_CA_BUNDLE=C:/Users/e477258/combined_pem.pem
+SSL_CERT_FILE=C:/Users/%USERNAME%/combined_pem.pem
+REQUESTS_CA_BUNDLE=C:/Users/%USERNAME%/combined_pem.pem
 ```
 
 Set permanently with Windows `setx`:

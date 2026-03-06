@@ -120,9 +120,9 @@
 - [x] Build re-verified after layout.tsx fix: `npm run build` passes, `npm run lint` 0 errors.
 
 ## Outstanding
-- [ ] Install pytest in the active Python environment and run `python -m pytest -q tests`.
-- [ ] Fix smoke test 7/7: empty payload returns 500 instead of 422 (status unknown).
-- [ ] Commit all accumulated work to git (partially done — status unknown).
+- [x] Install pytest and run tests — 14/14 pass (completed by other agent 2026-03-06).
+- [x] Fix smoke test 7/7: 422 validation fix committed; verified via TestClient + pytest (2026-03-06).
+- [x] Commit all accumulated work to git (completed by other agent 2026-03-06).
 - [x] Launch frontend + backend together and verify end-to-end UI flow (verified 2026-03-06).
 - [x] Re-run `python scripts/06_smoke_test.py` against live API — 6/7 pass (verified 2026-03-06).
 
@@ -137,3 +137,8 @@
 - [x] Validation: `npm.cmd run test:e2e` -> 3 passed.
 - [x] Validation: `npm.cmd run build` succeeded.
 - [x] Validation: `npm.cmd run lint` succeeded (1 existing warning from TanStack `useReactTable`).
+
+### Project-level Claude Code configuration (2026-03-06)
+- [x] Created `.claude/settings.local.json` — deny writes/edits to `data/*` and `vagrant destroy`.
+- [x] Created `.claude/agents/neo4j.md` — read-only schema agent: all node labels, properties, relationship types, vector indexes, Cypher constraints, and all 9 query constants from `src/graph/queries.py`.
+- [x] Created `.claude/agents/pipeline.md` — pipeline orchestration agent: 5-step sequence with exact commands, idempotency notes, partial-run resume table, and known gotchas.

@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 
 
-DEFAULT_SSL_CERT_PATH = "C:/Users/e477258/combined_pem.pem"
+DEFAULT_SSL_CERT_PATH = "C:/Users/%USERNAME%/combined_pem.pem"
 
 
 def _get_env(name: str, default: str | None = None) -> str | None:
@@ -44,7 +44,8 @@ class Settings:
 
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
-    ssl_cert_file = _get_env("SSL_CERT_FILE", DEFAULT_SSL_CERT_PATH) or DEFAULT_SSL_CERT_PATH
+    ssl_cert_value = _get_env("SSL_CERT_FILE", DEFAULT_SSL_CERT_PATH) or DEFAULT_SSL_CERT_PATH
+    ssl_cert_file = os.path.expandvars(ssl_cert_value)
     os.environ.setdefault("SSL_CERT_FILE", ssl_cert_file)
     os.environ.setdefault("REQUESTS_CA_BUNDLE", ssl_cert_file)
 

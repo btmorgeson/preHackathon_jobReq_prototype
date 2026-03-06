@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "deny": [
+      "Write(data/*)",
+      "Edit(data/*)",
+      "Bash(vagrant destroy*)"
+    ]
+  }
+}

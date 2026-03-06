@@ -159,7 +159,7 @@ pyproject.toml              # Python dependencies
 - Base URL: `https://api.ai.us.lmco.com/v1`, org header `openai-organization: SKLZ`
 - API key: `GENESIS_SKLZ_API_KEY` env var
 - Batch size: 25 texts per call
-- SSL: `httpx.Client(verify="C:/Users/e477258/combined_pem.pem")` passed to OpenAI client
+- SSL: `httpx.Client(verify="C:/Users/%USERNAME%/combined_pem.pem")` passed to OpenAI client
 - Retry with exponential backoff on rate limit errors
 - **NOT Bedrock** — boto3 not required for embeddings
 
@@ -264,7 +264,7 @@ GENESIS_EMBEDDING_MODEL=mxbai-embed-large-v1
 # AWS_SECRET_ACCESS_KEY=
 # BEDROCK_EMBEDDING_MODEL=amazon.titan-embed-text-v2:0
 
-SSL_CERT_FILE=C:/Users/e477258/combined_pem.pem
+SSL_CERT_FILE=C:/Users/%USERNAME%/combined_pem.pem
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 

@@ -225,7 +225,7 @@ extraction_response = client.chat.completions.create(
 The Genesis client is configured in `src/pipeline/embed/genesis_client.py`:
 - Base URL: `https://api.ai.us.lmco.com/v1`  
 - Organization header: `openai-organization: SKLZ`
-- SSL cert: `C:/Users/e477258/combined_pem.pem`
+- SSL cert: `C:/Users/%USERNAME%/combined_pem.pem`
 
 ---
 

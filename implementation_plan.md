@@ -65,7 +65,7 @@ No new Python or Node dependencies needed. All required packages are already in 
 Runtime requirements (must be set before running):
 - `GENESIS_SKLZ_API_KEY` env var — for embeddings and skill extraction
 - `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` — defaults work with docker-compose
-- `SSL_CERT_FILE` = `C:/Users/e477258/combined_pem.pem`
+- `SSL_CERT_FILE` = `C:/Users/%USERNAME%/combined_pem.pem`
 - Docker running with `neo4j-prototype` container
 
 [Testing]

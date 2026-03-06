@@ -1,8 +1,8 @@
 # Active Context
 
 ## Current Task
-Frontend corporate-tech refresh (2026-03-06) — COMPLETE. Build verified.
-Backend stabilization — COMPLETE (2026-03-06). All committed. Smoke 6/7 live (server needs restart); 7/7 verified TestClient. Pytest 14/14 pass.
+Project is demo-ready (2026-03-06). No active task.
+Claude Code project config added: `.claude/settings.local.json` + agents `neo4j` and `pipeline`.
 
 ## Last Completed Session: Frontend Corporate-Tech Refresh + Playwright QA (2026-03-06)
 - Tokenized corporate palette, layered background, refreshed all 4 components + page shell.

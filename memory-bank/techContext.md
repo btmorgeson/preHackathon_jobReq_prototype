@@ -2,7 +2,7 @@
 
 ## Project
 Pre-hackathon prototype: Job Req -> Candidate Ranking (LMCO HR AI Hackathon, March 23-26 2026)
-Repo: `C:/Users/e477258/Documents/dev/preHackathon_jobReq_prototype`
+Repo: `C:/Users/%USERNAME%/Documents/dev/preHackathon_jobReq_prototype`
 
 ## Runtime Baseline (validated 2026-03-05)
 - Neo4j runtime: Vagrant VM (Ubuntu 22.04, Neo4j 5.26.21), Docker path remains available as alternate.
@@ -25,7 +25,7 @@ Repo: `C:/Users/e477258/Documents/dev/preHackathon_jobReq_prototype`
 | Reasoning model | `claude-4-5-sonnet-latest` |
 | Extraction model | `gpt-oss-120b` (structured JSON output) |
 | Embedding model | `mxbai-embed-large-v1` (1024 dims, cosine) |
-| SSL cert | `C:/Users/e477258/combined_pem.pem` |
+| SSL cert | `C:/Users/%USERNAME%/combined_pem.pem` |
 | Bedrock | Fallback only (not primary) |
 
 ## Python Dependencies (installed, see pyproject.toml)
@@ -108,8 +108,8 @@ CALL db.index.vector.createNodeIndex('role_title_idx', 'Role', 'title_embedding'
 - Shells: PowerShell + Git Bash
 - Python command: `python`
 - Node: `v22.22.0` at `/c/Program Files/nodejs/node`
-- SSL cert path: `C:/Users/e477258/combined_pem.pem`
-- HTTP client TLS: `httpx.Client(verify="C:/Users/e477258/combined_pem.pem")`
+- SSL cert path: `C:/Users/%USERNAME%/combined_pem.pem`
+- HTTP client TLS: `httpx.Client(verify="C:/Users/%USERNAME%/combined_pem.pem")`
 - Python HTTP env vars: `SSL_CERT_FILE`, `REQUESTS_CA_BUNDLE`
 
 ## Running the App (host flow)
