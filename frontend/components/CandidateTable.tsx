@@ -181,7 +181,7 @@ export default function CandidateTable({
                   </tr>
                   {isExpanded && (
                     <tr className="bg-[#f3f9ff]">
-                      <td colSpan={columns.length} className="px-5 py-4 text-sm text-[var(--ink-700)]">
+                      <td colSpan={columns.length} className="px-5 py-4 text-sm leading-7 text-[var(--ink-700)]">
                         <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ink-600)]">
                           Evidence
                         </span>

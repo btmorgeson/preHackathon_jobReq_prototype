@@ -91,4 +91,6 @@ Errors return a consistent envelope:
 ## Testing and CI
 - Backend unit tests: `pytest -q`
 - Frontend checks: `npm.cmd run lint`, `npm.cmd run build` from `frontend/`
+- Frontend e2e checks: `npm.cmd run test:e2e` from `frontend/`
+  - First-time local setup: `npx.cmd playwright install chromium`
 - CI workflow: `.github/workflows/ci.yml`

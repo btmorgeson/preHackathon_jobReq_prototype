@@ -13,6 +13,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import ValidationError as PydanticValidationError
 
+
+def _sanitize_validation_errors(errors: list) -> list:
+    """Strip non-JSON-serializable values (e.g., Exception objects in ctx) from Pydantic v2 errors."""
+    result = []
+    for err in errors:
+        sanitized = {k: v for k, v in err.items() if k not in ("ctx", "url")}
+        if "ctx" in err:
+            sanitized["ctx"] = {
+                k: str(v) if not isinstance(v, (str, int, float, bool, type(None))) else v
+                for k, v in err["ctx"].items()
+            }
+        result.append(sanitized)
+    return result
+
 from src.api.deps import close_driver, get_driver
 from src.api.models import ErrorResponse
 from src.api.routers import postings, search, skills
@@ -103,7 +117,7 @@ async def request_validation_exception_handler(request: Request, exc: RequestVal
         status_code=422,
         code="validation_error",
         message="Request validation failed.",
-        details=exc.errors(),
+        details=_sanitize_validation_errors(exc.errors()),
     )
 
 
@@ -127,7 +141,7 @@ async def pydantic_validation_exception_handler(request: Request, exc: PydanticV
         status_code=422,
         code="validation_error",
         message="Request validation failed.",
-        details=exc.errors(),
+        details=_sanitize_validation_errors(exc.errors()),
     )
 
 

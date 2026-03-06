@@ -114,13 +114,6 @@
 - [x] Chart tick font size bumped from 11px to 13px.
 - [x] `npm run build` passes, `npm run lint` passes (0 errors).
 
-## Outstanding
-- [ ] Install pytest in the active Python environment and run `python -m pytest -q tests`.
-- [ ] Fix smoke test 7/7: empty payload returns 500 instead of 422 (model validator → ValueError not caught as RequestValidationError).
-- [ ] Commit stable_id fix + Vagrant additions + Graph RAG refactor to git.
-- [ ] Launch Next.js frontend and verify end-to-end UI flow.
-- [ ] Re-run `python scripts/06_smoke_test.py` against live API to verify hybrid retriever does not break any of the 6 passing tests.
-
 ### Frontend corporate-tech style implementation + iterative Playwright validation (2026-03-06)
 - [x] Replaced generic prototype styling with a tokenized corporate palette and layered background in `frontend/app/globals.css`.
 - [x] Refactored top-level page shell in `frontend/app/page.tsx` (hero/status panel, improved summary, stronger state surfaces).
@@ -134,3 +127,24 @@
 - [x] Playwright mobile check passed at `390x844` with verified horizontal table scrollability.
 - [x] `npm.cmd run build` succeeded.
 - [x] `npm.cmd run lint` succeeded with one existing warning (`react-hooks/incompatible-library` from TanStack `useReactTable`).
+- [x] Removed `next/font/google` imports (IBM Plex Sans, Space Grotesk) from `layout.tsx` — prevents hard build failure on corporate network.
+- [x] Build re-verified after layout.tsx fix: `npm run build` passes, `npm run lint` 0 errors.
+
+## Outstanding
+- [ ] Install pytest in the active Python environment and run `python -m pytest -q tests`.
+- [ ] Fix smoke test 7/7: empty payload returns 500 instead of 422 (other agent in progress).
+- [ ] Commit all accumulated work to git (other agent in progress).
+- [ ] Launch frontend + backend together and verify end-to-end UI flow.
+- [ ] Re-run `python scripts/06_smoke_test.py` against live API to verify hybrid retriever integration.
+
+### Frontend Playwright e2e automation and polish pass (2026-03-06)
+- [x] Added Playwright dependency and scripts in `frontend/package.json`.
+- [x] Added `frontend/playwright.config.ts` with reusable local web-server strategy.
+- [x] Added deterministic mocked-flow e2e specs in `frontend/e2e/app.spec.ts`.
+- [x] Added Playwright artifact ignores in `frontend/.gitignore`.
+- [x] Updated `frontend/README.md` with e2e usage notes.
+- [x] Applied second-pass visual rhythm refinements in `frontend/app/page.tsx`, `frontend/components/SearchForm.tsx`, and `frontend/components/CandidateTable.tsx`.
+- [x] Installed browser runtime via `npx.cmd playwright install chromium`.
+- [x] Validation: `npm.cmd run test:e2e` -> 3 passed.
+- [x] Validation: `npm.cmd run build` succeeded.
+- [x] Validation: `npm.cmd run lint` succeeded (1 existing warning from TanStack `useReactTable`).

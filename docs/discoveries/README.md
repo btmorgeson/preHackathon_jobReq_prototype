@@ -51,6 +51,13 @@ Validated local runtime for fresh graph creation using Vagrant + VirtualBox with
 
 ---
 
+### [07 - Frontend Corporate Style and Playwright E2E](./07-frontend-corporate-style-playwright-e2e.md)
+Captured the finalized frontend design refresh and committed deterministic Playwright e2e workflow.
+
+**Key finding**: `npm.cmd run test:e2e` now provides repeatable frontend regression coverage (3 passing specs) using mocked API routes, independent of backend uptime.
+
+---
+
 ## Quick Reference: Critical Credentials
 
 | Service | Address | User | Password |

@@ -86,6 +86,11 @@ CALL db.index.vector.createNodeIndex('role_title_idx', 'Role', 'title_embedding'
   - tokenized light corporate palette with cyan accents in `frontend/app/globals.css`
   - local corporate font stacks (no `next/font/google` dependency; avoids TLS fetch failures on corporate network)
   - Playwright-validated desktop/mobile interaction flow for req lookup and role-description extraction
+- Committed e2e harness (2026-03-06):
+  - config: `frontend/playwright.config.ts`
+  - specs: `frontend/e2e/app.spec.ts` (mocked API flows for deterministic frontend checks)
+  - scripts: `npm.cmd run test:e2e`, `npm.cmd run test:e2e:headed`, `npm.cmd run test:e2e:report`
+  - first-time browser install: `npx.cmd playwright install chromium`
 
 ## Backend
 - FastAPI + uvicorn

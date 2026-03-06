@@ -54,11 +54,20 @@ MATCH (n) RETURN count(n) LIMIT 1
 ```
 
 ## Frontend Typography Pattern
-- **No Google Fonts**: `next/font/google` causes hard build failure on corporate network (TLS interception). Use system font stack in `globals.css` instead.
-- **System font stack**: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`
+- **No Google Fonts**: `next/font/google` causes hard build failure on corporate network (TLS interception). Use local font stacks in `globals.css` instead.
+- **Body font stack**: `"Segoe UI Variable Text", "Aptos", "Trebuchet MS", "Tahoma", sans-serif`
+- **Heading font stack**: `"Bahnschrift", "Segoe UI Semibold", "Trebuchet MS", "Tahoma", sans-serif`
 - **Minimum readable text**: `text-sm` (14px) for content. Reserve `text-xs` (12px) only for badges/timestamps.
 - **Base font size**: `16px` on body (ensures Tailwind rem units compute correctly).
 - **Score precision**: `.toFixed(2)` not `.toFixed(3)` — two decimals is scannable, three is noise.
+
+## Frontend Design System (Corporate-Tech Theme)
+- **Tokenized palette**: CSS custom properties in `:root` — `--canvas-*`, `--surface-*`, `--line-*`, `--ink-*`, `--accent-*`.
+- **Panel utility classes**: `.panel-surface` (frosted glass card) and `.panel-surface-strong` (elevated card).
+- **Layered background**: Multi-radial-gradient on body (light-tech feel, no flat white).
+- **Motion**: `.reveal` / `.reveal-delay-*` fade-up animations with `prefers-reduced-motion` respect.
+- **Async UX guard**: Search button shows `Wait for skill sync...` while req lookup or skill extraction is in progress — prevents stale submissions.
+- **Request snapshot**: `snapshotRequest()` deep-clones the request at submit time so the query summary stays accurate.
 
 ## Windows and Corporate Constraints
 - Always set `SSL_CERT_FILE` and `REQUESTS_CA_BUNDLE` before external HTTPS calls.

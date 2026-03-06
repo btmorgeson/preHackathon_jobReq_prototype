@@ -107,20 +107,20 @@ export default function Home() {
                 calibrated scoring model built for fast hiring decisions.
               </p>
             </div>
-            <div className="grid w-full max-w-sm gap-3 rounded-2xl border border-[var(--line-200)] bg-[rgba(255,255,255,0.82)] px-4 py-4 text-sm text-[var(--ink-700)] shadow-sm">
-              <div className="flex items-center justify-between">
+            <div className="grid w-full max-w-sm gap-2 rounded-2xl border border-[var(--line-200)] bg-[rgba(255,255,255,0.82)] px-4 py-4 text-sm text-[var(--ink-700)] shadow-sm">
+              <div className="flex items-center justify-between rounded-xl border border-[var(--line-200)] bg-[rgba(255,255,255,0.9)] px-3 py-2">
                 <span className="font-medium text-[var(--ink-600)]">Status</span>
                 <span className="rounded-full bg-[var(--accent-soft)] px-2.5 py-1 text-xs font-semibold text-[var(--accent-600)]">
                   {phase.toUpperCase()}
                 </span>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between rounded-xl border border-[var(--line-200)] bg-[rgba(255,255,255,0.9)] px-3 py-2">
                 <span className="font-medium text-[var(--ink-600)]">Selected Candidate</span>
                 <span className="truncate pl-3 text-right font-semibold text-[var(--ink-900)]">
                   {selectedCandidate?.name ?? "None"}
                 </span>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between rounded-xl border border-[var(--line-200)] bg-[rgba(255,255,255,0.9)] px-3 py-2">
                 <span className="font-medium text-[var(--ink-600)]">Last Request</span>
                 <span className="truncate pl-3 text-right font-semibold text-[var(--ink-900)]">
                   {lastResponse?.request_id.slice(0, 8) ?? "Not run"}
@@ -135,7 +135,7 @@ export default function Home() {
         </section>
 
         {querySummary && (
-          <section className="panel-surface reveal reveal-delay-2 px-5 py-4 text-sm text-[var(--ink-700)] md:px-6 md:py-5">
+          <section className="panel-surface reveal reveal-delay-2 bg-[rgba(255,255,255,0.9)] px-5 py-4 text-sm text-[var(--ink-700)] md:px-6 md:py-5">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--ink-600)]">
               Query Summary
             </p>

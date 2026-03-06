@@ -158,10 +158,10 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
   };
 
   return (
-    <section className="panel-surface px-5 py-6 md:px-7 md:py-7">
+    <section className="panel-surface bg-[rgba(255,255,255,0.9)] px-5 py-6 md:px-7 md:py-7">
       <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div className="space-y-1">
-          <h2 className="text-xl font-semibold text-[var(--ink-900)]">Search Setup</h2>
+          <h2 className="text-xl font-semibold tracking-[-0.015em] text-[var(--ink-900)]">Search Setup</h2>
           <p className="text-sm text-[var(--ink-700)]">
             Start from a requisition or a freeform role description, then refine required and desired skills.
           </p>
@@ -200,7 +200,7 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
 
       {activeTab === "req" ? (
         <div className="space-y-3">
-          <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-[var(--ink-600)]">
+          <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-[var(--ink-600)]">
             Requisition Lookup
           </label>
           <div className="flex flex-col gap-2 md:flex-row">
@@ -233,7 +233,7 @@ export default function SearchForm({ onSearch, isLoading }: SearchFormProps) {
         </div>
       ) : (
         <div className="space-y-3">
-          <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-[var(--ink-600)]">
+          <label className="block text-xs font-semibold uppercase tracking-[0.2em] text-[var(--ink-600)]">
             Description Parsing
           </label>
           <textarea
