@@ -47,17 +47,6 @@
 - [x] Added `.vagrant/` to `.gitignore`.
 - [x] Added `vagrant-up` and `vagrant-reset` tasks in `scripts/tasks.ps1`.
 
-## Verification
-- [x] `python -m compileall src scripts tests`
-- [x] `npm.cmd run lint` (warning only, no errors)
-- [x] `npm.cmd run build`
-- [x] Test functions invoked directly via `python -c` to validate new unit tests in absence of local pytest module
-- [x] `vagrant validate`
-- [x] Bash syntax checks for `scripts/vagrant/*.sh`
-- [x] `vagrant provision` completed on VirtualBox VM
-- [x] `vagrant ssh -c "bash /workspace/scripts/vagrant/reset_and_import.sh"` completed with successful import and count verification
-- [x] Host connectivity checks (`http://localhost:7474`, `bolt://localhost:7687`)
-
 ### Documentation and memory-bank synchronization (2026-03-05)
 - [x] Updated `docs/README.md` to state Vagrant-first Neo4j flow and Docker alternate.
 - [x] Updated `scripts/neo4j_bulk_import.md` with Vagrant import command, Docker fallback, and Neo4j 5.26 CLI syntax note.
@@ -132,10 +121,10 @@
 
 ## Outstanding
 - [ ] Install pytest in the active Python environment and run `python -m pytest -q tests`.
-- [ ] Fix smoke test 7/7: empty payload returns 500 instead of 422 (other agent in progress).
-- [ ] Commit all accumulated work to git (other agent in progress).
-- [ ] Launch frontend + backend together and verify end-to-end UI flow.
-- [ ] Re-run `python scripts/06_smoke_test.py` against live API to verify hybrid retriever integration.
+- [ ] Fix smoke test 7/7: empty payload returns 500 instead of 422 (status unknown).
+- [ ] Commit all accumulated work to git (partially done — status unknown).
+- [x] Launch frontend + backend together and verify end-to-end UI flow (verified 2026-03-06).
+- [x] Re-run `python scripts/06_smoke_test.py` against live API — 6/7 pass (verified 2026-03-06).
 
 ### Frontend Playwright e2e automation and polish pass (2026-03-06)
 - [x] Added Playwright dependency and scripts in `frontend/package.json`.

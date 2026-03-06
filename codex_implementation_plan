@@ -1,0 +1,63 @@
+# codex_implementation_plan
+
+## Decision
+Do not start with a full multi-agent system. Start with a docs contract and enforcement pipeline, then scale to agents only when needed.
+
+## Why
+This project's biggest risk is documentation drift and unverifiable claims, not a lack of generation speed. A contract-first pipeline solves that with lower complexity and less operational risk.
+
+## Implementation Order
+
+### Phase 1 (Required): Contract + QA Baseline
+- Create machine-readable docs spec:
+  - required files/modules
+  - required section headers
+  - citation/access-date/version rules
+  - allowed source domains
+- Add automated checks:
+  - required headings
+  - citation presence/format
+  - broken links
+  - absolute-path bans
+  - large artifact guardrails
+- Run checks in CI and locally.
+
+Exit criteria:
+- Checks fail on bad docs and pass on known-good docs.
+- Two modules are fully compliant.
+
+### Phase 2 (Optional): Lightweight Agent Assist
+- Add Scout/Extractor to produce:
+  - `sources.json`
+  - `claims.json`
+  - `commands.json`
+- Writer consumes only these artifacts (no freeform invention).
+
+Exit criteria:
+- Generated docs consistently pass Phase 1 checks.
+- Rework rate is low across multiple updates.
+
+### Phase 3 (Conditional): 4-Agent System
+Use exactly 4 agents:
+1. Orchestrator
+2. Scout+Extractor
+3. Writer
+4. QA+Runner
+
+State machine:
+`PLAN -> SOURCES -> EXTRACT -> DRAFT -> QA -> RUNNER -> PR`
+
+Hard rule: no merge if QA/Runner fails.
+
+Exit criteria:
+- Throughput gain is real (faster module updates with equal/higher quality).
+- Operational overhead remains acceptable.
+
+## Non-Goals (for startup)
+- No 6+ agent swarm.
+- No complex retry orchestration before contract tests are proven.
+- No runtime verification dependency until basic doc quality gates are stable.
+
+## Final Position
+A multi-agent setup is worth it for this project only after contract-first foundations are in place.
+Starting with full multi-agent orchestration would be premature and higher risk.
